@@ -1,0 +1,126 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>SAMOA by yahoo</title>
+
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1>SAMOA</h1>
+        <p>Scalable Advanced Massive Online Analysis</p>
+
+        <p class="view"><a href="https://github.com/yahoo/samoa">View the Project on GitHub <small>yahoo/samoa</small></a></p>
+
+
+        <ul>
+          <li><a href="https://github.com/yahoo/samoa/zipball/master">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/yahoo/samoa/tarball/master">Download <strong>TAR Ball</strong></a></li>
+          <li><a href="https://github.com/yahoo/samoa">View On <strong>GitHub</strong></a></li>
+        </ul>
+      </header>
+      <section>
+        <p>SAMOA is a platform for mining on big data streams.
+It is a distributed streaming machine learning (ML) framework that contains a 
+programing abstraction for distributed streaming ML algorithms.</p>
+
+<p>SAMOA enables development of new ML algorithms without dealing with 
+the complexity of underlying streaming processing engines (SPE, such 
+as Apache Storm and Apache S4). SAMOA also provides extensibility in integrating
+new SPEs into the framework. These features allow SAMOA users to develop 
+distributed streaming ML algorithms once and to execute the algorithms 
+in multiple SPEs, i.e., code the algorithms once and execute them in multiple SPEs.</p>
+
+<h2>
+<a name="build" class="anchor" href="#build"><span class="octicon octicon-link"></span></a>Build</h2>
+
+<h3>
+<a name="storm" class="anchor" href="#storm"><span class="octicon octicon-link"></span></a>Storm</h3>
+
+<p>Simply clone the repository and install SAMOA.</p>
+
+<div class="highlight highlight-bash"><pre>git clone git@github.com:yahoo/samoa.git
+<span class="nb">cd </span>samoa
+mvn -Pstorm package
+</pre></div>
+
+<p>The deployable jar for SAMOA will be in <code>target/SAMOA-Storm-0.0.1.jar</code>.</p>
+
+<h3>
+<a name="s4" class="anchor" href="#s4"><span class="octicon octicon-link"></span></a>S4</h3>
+
+<p>If you want to compile SAMOA for S4, you will need to install the S4 dependencies
+manually as explained in <a href="../../wiki/Executing-SAMOA-with-Apache-S4">Executing SAMOA with Apache S4</a>.</p>
+
+<p>Once the dependencies if needed are installed, you can simply clone the repository and install SAMOA.</p>
+
+<div class="highlight highlight-bash"><pre>git clone git@github.com:yahoo/samoa.git
+<span class="nb">cd </span>samoa
+mvn -Ps4 package
+</pre></div>
+
+<p>The deployable jars for SAMOA will be in <code>target/SAMOA-S4-0.0.1.jar</code>.</p>
+
+<h2>
+<a name="documentation" class="anchor" href="#documentation"><span class="octicon octicon-link"></span></a>Documentation</h2>
+
+<p>The documentation is intended to give an introduction on how to use SAMOA in the various different ways possible. 
+As a user you can use it to develop new algorithms and test different Stream Processing Engines.</p>
+
+<ul>
+<li>
+<a href="../../wiki/Scalable%20Advanced%20Massive%20Online%20Analysis">1 Scalable Advanced Massive Online Analysis</a>
+
+<ul>
+<li><a href="../../wiki/Building%20SAMOA">1.0 Building SAMOA</a></li>
+<li><a href="../../wiki/Executing%20SAMOA%20with%20Apache%20Storm">1.1 Executing SAMOA with Apache Storm</a></li>
+<li><a href="../../wiki/Executing-SAMOA-with-Apache-S4">1.2 Executing SAMOA with Apache S4</a></li>
+</ul>
+</li>
+<li>
+<a href="../../wiki/SAMOA%20and%20Machine%20Learning">2 SAMOA and Machine Learning</a>
+
+<ul>
+<li><a href="../../wiki/Prequential%20Evaluation%20Task">2.1 Prequential Evaluation Task</a></li>
+<li><a href="../../wiki/Vertical%20Hoeffding%20Tree%20Classifier">2.2 Vertical Hoeffding Tree Classifier</a></li>
+<li><a href="../../wiki/Distributed%20Stream%20Clustering">2.3 Distributed Stream Clustering</a></li>
+</ul>
+</li>
+<li>
+<a href="../../wiki/SAMOA%20Topology">3 SAMOA Topology</a>
+
+<ul>
+<li><a href="../../wiki/Processor">3.1 Processor</a></li>
+<li><a href="../../wiki/Content%20Event">3.2 Content Event</a></li>
+<li><a href="../../wiki/Stream">3.3 Stream</a></li>
+<li><a href="../../wiki/Task">3.4 Task</a></li>
+<li><a href="../../wiki/Topology%20Builder">3.5 Topology Builder</a></li>
+<li><a href="../../wiki/Topology%20Starter">3.6 Topology Starter</a></li>
+<li><a href="../../wiki/Learner">3.7 Learner</a></li>
+<li><a href="../../wiki/Processing%20Item">3.8 Processing Item</a></li>
+</ul>
+</li>
+<li><a href="../../wiki/Developing%20New%20Tasks%20in%20SAMOA">4 Developing New Tasks in SAMOA</a></li>
+</ul><h2>
+<a name="license" class="anchor" href="#license"><span class="octicon octicon-link"></span></a>License</h2>
+
+<p>The use and distribution terms for this software are covered by the
+Apache License, Version 2.0 (<a href="http://www.apache.org/licenses/LICENSE-2.0.html">http://www.apache.org/licenses/LICENSE-2.0.html</a>).</p>
+      </section>
+      <footer>
+        <p>This project is maintained by <a href="https://github.com/yahoo">yahoo</a></p>
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
+      </footer>
+    </div>
+    <script src="javascripts/scale.fix.js"></script>
+    
+  </body>
+</html>
