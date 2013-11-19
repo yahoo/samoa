@@ -78,8 +78,6 @@ public class SimpleClassifierAdapter implements LocalClassifierAdapter, Configur
     /**
      * Instantiates a new learner.
      *
-     * @param learner the learner
-     * @param dataset the dataset
      */
     public SimpleClassifierAdapter() {
         this.learner = ((com.yahoo.labs.samoa.moa.classifiers.Classifier) this.learnerOption.getValue()).copy();
