@@ -37,7 +37,7 @@ public interface ContentEvent extends java.io.Serializable {
 	 * 
 	 * @param key string
 	 */
-	public void setKey(String key);
+	public void setKey(String str);
 	
 	public boolean isLastEvent();
 }
