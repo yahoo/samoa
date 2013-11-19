@@ -74,17 +74,21 @@ public class TopologyBuilder {
     }
 
     /**
-     * Creates a processing item with a specific processor and its paralellism
-     * level.
-     *
+     * create 1 processor
      * @param processor
-     * @param paralellism
-     * @return ProcessingItem
+     * @return
      */
     public ProcessingItem createPi(Processor processor) {
         return createPi(processor, 1);
     }
 
+    /**
+     * Creates a processing item with a specific processor and its paralellism
+     * level.
+     *
+     * @param processor
+     * @return ProcessingItem
+     */
     public ProcessingItem createPi(Processor processor, int parallelism) {
         ProcessingItem pi = this.componentFactory.createPi(processor, parallelism);
         this.topology.addProcessingItem(pi, parallelism);
