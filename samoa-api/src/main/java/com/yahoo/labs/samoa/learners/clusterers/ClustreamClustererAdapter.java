@@ -79,8 +79,6 @@ public class ClustreamClustererAdapter implements LocalClustererAdapter, Configu
     /**
      * Instantiates a new learner.
      *
-     * @param learner the learner
-     * @param dataset the dataset
      */
     public ClustreamClustererAdapter() {
         this.learner = ((com.yahoo.labs.samoa.moa.clusterers.Clusterer) this.learnerOption.getValue()).copy();
