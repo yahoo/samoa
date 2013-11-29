@@ -38,7 +38,7 @@
         <dependency>
             <groupId>com.yahoo.labs.samoa</groupId>
             <artifactId>samoa-api</artifactId>
-            <version>${samoa-api.version}</version>
+            <version>${project.version} </version>
         </dependency>
 
         <dependency>

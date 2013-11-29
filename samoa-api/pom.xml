@@ -63,7 +63,7 @@
         <dependency>
             <groupId>com.yahoo.labs.samoa</groupId>
             <artifactId>samoa-instances</artifactId>
-            <version>${samoa-instances.version}</version>
+            <version>${project.version}</version>
         </dependency>
 
         <dependency>
