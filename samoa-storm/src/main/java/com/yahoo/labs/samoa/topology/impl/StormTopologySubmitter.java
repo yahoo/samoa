@@ -100,10 +100,9 @@ public class StormTopologySubmitter {
 		
 		Config config = new Config();
 		config.putAll(Utils.readStormConfig());
-		
-		String nimbusHost = (String) config.get(Config.NIMBUS_HOST);
-				
-		NimbusClient nc = new NimbusClient(nimbusHost);
+
+        NimbusClient nc =NimbusClient.getConfiguredClient(config);
+
 		String topologyName = stormTopo.getTopologyName();
 		try {
 			System.out.println("Submitting topology with name: " 
