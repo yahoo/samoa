@@ -82,7 +82,10 @@ public class ClusteringEvaluation implements Task, Configurable {
 
     public FloatOption samplingThresholdOption = new FloatOption("samplingThreshold", 'a', "Ratio of instances sampled that will be used for evaluation.", 0.5,
             0.0, 1.0);
-
+    
+    // Default=0: no delay/waiting
+    public IntOption sourceDelayOption = new IntOption("sourceDelay", 'w', "How many miliseconds between injections of two instances.", 0, 0, Integer.MAX_VALUE);
+    
     private ClusteringSourceProcessor source;
 
     private ClusteringSourceTopologyStarter starter;
@@ -120,7 +123,7 @@ public class ClusteringEvaluation implements Task, Configurable {
             builder = new TopologyBuilder();
             logger.debug("Sucessfully instantiating TopologyBuilder");
 
-            builder.initTopology(evaluationNameOption.getValue());
+            builder.initTopology(evaluationNameOption.getValue(), sourceDelayOption.getValue());
             logger.debug("Sucessfully initializing SAMOA topology with name {}", evaluationNameOption.getValue());
         }
 
@@ -175,7 +178,7 @@ public class ClusteringEvaluation implements Task, Configurable {
         builder = new TopologyBuilder(factory);
         logger.debug("Sucessfully instantiating TopologyBuilder");
 
-        builder.initTopology(evaluationNameOption.getValue());
+        builder.initTopology(evaluationNameOption.getValue(), sourceDelayOption.getValue());
         logger.debug("Sucessfully initializing SAMOA topology with name {}", evaluationNameOption.getValue());
 
     }

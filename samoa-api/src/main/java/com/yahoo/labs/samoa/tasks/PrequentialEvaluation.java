@@ -78,6 +78,9 @@ public class PrequentialEvaluation implements Task, Configurable {
 
     public FileOption dumpFileOption = new FileOption("dumpFile", 'd', "File to append intermediate csv results to", null, "csv", true);
 
+    // Default=0: no delay/waiting
+    public IntOption sourceDelayOption = new IntOption("sourceDelay", 'w', "How many miliseconds between injections of two instances.", 0, 0, Integer.MAX_VALUE);
+    
     private PrequentialSourceProcessor preqSource;
 
     // private PrequentialSourceTopologyStarter preqStarter;
@@ -113,7 +116,7 @@ public class PrequentialEvaluation implements Task, Configurable {
             builder = new TopologyBuilder();
             logger.debug("Sucessfully instantiating TopologyBuilder");
 
-            builder.initTopology(evaluationNameOption.getValue());
+            builder.initTopology(evaluationNameOption.getValue(), sourceDelayOption.getValue());
             logger.debug("Sucessfully initializing SAMOA topology with name {}", evaluationNameOption.getValue());
         }
 
@@ -160,7 +163,7 @@ public class PrequentialEvaluation implements Task, Configurable {
         builder = new TopologyBuilder(factory);
         logger.debug("Sucessfully instantiating TopologyBuilder");
 
-        builder.initTopology(evaluationNameOption.getValue());
+        builder.initTopology(evaluationNameOption.getValue(), sourceDelayOption.getValue());
         logger.debug("Sucessfully initializing SAMOA topology with name {}", evaluationNameOption.getValue());
 
     }
