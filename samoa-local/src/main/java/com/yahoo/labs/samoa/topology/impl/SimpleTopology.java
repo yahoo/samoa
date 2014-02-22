@@ -33,9 +33,7 @@ public class SimpleTopology extends Topology {
     private SimpleEntranceProcessingItem entrancePi; // TODO allow multiple EntrancePIs
 
     public void run() {
-        while (this.entrancePi.injectNextEvent())
-            // inject events from the EntrancePI
-            ;
+        this.entrancePi.startSendingEvents();
     }
 
     SimpleTopology(String topoName) {

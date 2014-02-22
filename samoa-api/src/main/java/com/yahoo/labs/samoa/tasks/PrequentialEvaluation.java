@@ -116,7 +116,7 @@ public class PrequentialEvaluation implements Task, Configurable {
             builder = new TopologyBuilder();
             logger.debug("Sucessfully instantiating TopologyBuilder");
 
-            builder.initTopology(evaluationNameOption.getValue(), sourceDelayOption.getValue());
+            builder.initTopology(evaluationNameOption.getValue());
             logger.debug("Sucessfully initializing SAMOA topology with name {}", evaluationNameOption.getValue());
         }
 
@@ -124,6 +124,7 @@ public class PrequentialEvaluation implements Task, Configurable {
         preqSource = new PrequentialSourceProcessor();
         preqSource.setStreamSource((InstanceStream) this.streamTrainOption.getValue());
         preqSource.setMaxNumInstances(instanceLimitOption.getValue());
+        preqSource.setSourceDelay(sourceDelayOption.getValue());
         builder.addEntranceProcessor(preqSource);
         logger.debug("Sucessfully instantiating PrequentialSourceProcessor");
 
@@ -163,7 +164,7 @@ public class PrequentialEvaluation implements Task, Configurable {
         builder = new TopologyBuilder(factory);
         logger.debug("Sucessfully instantiating TopologyBuilder");
 
-        builder.initTopology(evaluationNameOption.getValue(), sourceDelayOption.getValue());
+        builder.initTopology(evaluationNameOption.getValue());
         logger.debug("Sucessfully initializing SAMOA topology with name {}", evaluationNameOption.getValue());
 
     }
