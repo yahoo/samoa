@@ -66,7 +66,7 @@ public final class PrequentialSourceProcessor implements EntranceProcessor {
 	private transient ScheduledExecutorService timer = Executors.newScheduledThreadPool(1);
 	private transient ScheduledFuture<?> schedule = null;
 	private int readyEventIndex = 1; // No waiting for the first event
-	private int delay;
+	private int delay = 0;
 
     @Override
     public boolean process(ContentEvent event) {
@@ -83,7 +83,7 @@ public final class PrequentialSourceProcessor implements EntranceProcessor {
     @Override
     public boolean hasNext() {
     	if (isFinished()) return false;
-    	return (numInstanceSent < readyEventIndex);
+    	return (delay <= 0 || numInstanceSent < readyEventIndex);
     }
 
     @Override
@@ -98,7 +98,7 @@ public final class PrequentialSourceProcessor implements EntranceProcessor {
             contentEvent = new InstanceContentEvent(numInstanceSent, nextInstance(), true, true);
             
             // first call to this method will trigger the timer
-            if (schedule == null) {
+            if (schedule == null && delay > 0) {
             	schedule = timer.scheduleWithFixedDelay(new DelayTimeoutHandler(this), delay, delay, TimeUnit.MILLISECONDS);
             }
         }
