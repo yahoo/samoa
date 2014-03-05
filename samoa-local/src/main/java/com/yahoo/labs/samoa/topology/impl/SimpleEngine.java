@@ -34,7 +34,7 @@ public class SimpleEngine {
         EntranceProcessingItem epi = simpleTopology.getEntranceProcessingItem();
         epi.getProcessor().onCreate(0);
         simpleTopology.run();
-        //Runtime.getRuntime().exit(0); // terminates execution and all launched threads
+        Runtime.getRuntime().exit(0); // terminates execution and all launched threads
     }
 
 }

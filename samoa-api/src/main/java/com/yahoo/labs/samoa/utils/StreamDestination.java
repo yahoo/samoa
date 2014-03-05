@@ -1,4 +1,4 @@
-package com.yahoo.labs.samoa.topology.impl;
+package com.yahoo.labs.samoa.utils;
 
 /*
  * #%L
@@ -21,7 +21,6 @@ package com.yahoo.labs.samoa.topology.impl;
  */
 
 import com.yahoo.labs.samoa.topology.IProcessingItem;
-import com.yahoo.labs.samoa.utils.PartitioningScheme;
 
 /**
  * Represents one destination for streams. It has the info of:
@@ -30,6 +29,7 @@ import com.yahoo.labs.samoa.utils.PartitioningScheme;
  * - When ProcessingItem connects to a stream, it will pass 
  * a StreamDestination to the stream.
  * - Stream manages a set of StreamDestination.
+ * - Used in single-threaded and multi-threaded local mode.
  * @author Anh Thu Vu
  *
  */

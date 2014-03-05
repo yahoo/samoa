@@ -69,8 +69,11 @@ class SimpleEntranceProcessingItem implements EntranceProcessingItem {
 
     @Override
     public EntranceProcessingItem setOutputStream(Stream stream) {
-        if (this.outputStream != null)
-            throw new IllegalStateException("Output stream for an EntrancePI sohuld be initialized only once");
+        if (this.outputStream != null) {
+        	if (this.outputStream == stream) return this; // Allow reassign to the same output stream
+        	else
+        		throw new IllegalStateException("Output stream for an EntrancePI sohuld be initialized only once");
+        }
         this.outputStream = stream;
         return this;
     }
