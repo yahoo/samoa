@@ -40,17 +40,8 @@ import com.yahoo.labs.samoa.utils.StreamDestination;
  */
 class SimpleStream implements Stream {
     private List<StreamDestination> destinations;
-    private int processingItemParalellism;
     private int shuffleCounter;
     private int maxCounter;
-
-    public int getParalellism() {
-        return processingItemParalellism;
-    }
-
-    public void setParalellism(int paralellism) {
-        this.processingItemParalellism = paralellism;
-    }
 
     SimpleStream(IProcessingItem sourcePi) {
     	this.destinations = new LinkedList<StreamDestination>();
@@ -63,8 +54,10 @@ class SimpleStream implements Stream {
         if (this.shuffleCounter >= this.maxCounter) this.shuffleCounter = 0;
         
         SimpleProcessingItem pi;
+        int parallelism;
         for (StreamDestination destination:destinations) {
             pi = (SimpleProcessingItem) destination.getProcessingItem();
+            parallelism = destination.getParallelism();
             switch (destination.getPartitioningScheme()) {
             case SHUFFLE:
                 pi.processEvent(event, shuffleCounter);
@@ -72,11 +65,11 @@ class SimpleStream implements Stream {
             case GROUP_BY_KEY:
                 HashCodeBuilder hb = new HashCodeBuilder();
                 hb.append(event.getKey());
-                int key = hb.build() % getParalellism();
+                int key = hb.build() % parallelism;
                 pi.processEvent(event, key);
                 break;
             case BROADCAST:
-                for (int p = 0; p < this.getParalellism(); p++) {
+                for (int p = 0; p < parallelism; p++) {
                     pi.processEvent(event, p);
                 }
                 break;
