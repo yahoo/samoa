@@ -21,9 +21,10 @@ package com.yahoo.labs.samoa.utils;
  */
 
 /**
+ * Represents the 3 schemes to partition the streams
  * @author Anh Thu Vu
  *
  */
-public enum EventAllocationType {
+public enum PartitioningScheme {
 	SHUFFLE, GROUP_BY_KEY, BROADCAST
 }
