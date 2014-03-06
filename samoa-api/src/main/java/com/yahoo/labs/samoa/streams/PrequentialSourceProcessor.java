@@ -63,7 +63,7 @@ public final class PrequentialSourceProcessor implements EntranceProcessor {
 	 * It is expected to have only one event in the queue at a time, so we need only 
 	 * one thread in the pool.
 	 */
-	private transient ScheduledExecutorService timer = Executors.newScheduledThreadPool(1);
+	private transient ScheduledExecutorService timer;
 	private transient ScheduledFuture<?> schedule = null;
 	private int readyEventIndex = 1; // No waiting for the first event
 	private int delay = 0;
@@ -117,7 +117,7 @@ public final class PrequentialSourceProcessor implements EntranceProcessor {
     public void onCreate(int id) {
         this.id = id;
         initStreamSource(sourceStream);
-        
+        timer = Executors.newScheduledThreadPool(1);
         logger.debug("Creating PrequentialSourceProcessor with id {}", this.id);
     }
 
