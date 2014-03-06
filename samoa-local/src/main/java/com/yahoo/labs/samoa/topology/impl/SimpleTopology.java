@@ -33,6 +33,10 @@ public class SimpleTopology extends Topology {
     private SimpleEntranceProcessingItem entrancePi; // TODO allow multiple EntrancePIs
 
     public void run() {
+    	if (entrancePi == null) 
+    		throw new IllegalStateException("You need to set entrance PI before running the topology.");
+    	
+    	this.entrancePi.getProcessor().onCreate(0); // id=0 as it is not used in simple mode
         this.entrancePi.startSendingEvents();
     }
 

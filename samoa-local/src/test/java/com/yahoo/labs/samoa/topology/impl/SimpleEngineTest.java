@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.yahoo.labs.samoa.topology.impl;
 
 /*
@@ -24,15 +20,38 @@ package com.yahoo.labs.samoa.topology.impl;
  * #L%
  */
 
-import com.yahoo.labs.samoa.topology.EntranceProcessingItem;
-import com.yahoo.labs.samoa.topology.Topology;
+import mockit.Mocked;
+import mockit.NonStrictExpectations;
+import mockit.Tested;
+import mockit.Verifications;
 
-public class SimpleEngine {
+import org.junit.Test;
 
-    public static void submitTopology(Topology topology) {
-        SimpleTopology simpleTopology = (SimpleTopology) topology;
-        simpleTopology.run();
-        Runtime.getRuntime().exit(0); // terminates execution and all launched threads
-    }
+/**
+ * @author Anh Thu Vu
+ *
+ */
+public class SimpleEngineTest {
+
+	@Tested private SimpleEngine unused;
+	@Mocked private SimpleTopology topology;
+	@Mocked private Runtime mockedRuntime;
+	
+	@Test
+	public void testSubmitTopology() {
+		new NonStrictExpectations() {
+			{
+				Runtime.getRuntime();
+				result=mockedRuntime;
+				mockedRuntime.exit(0);
+			}
+		};
+		SimpleEngine.submitTopology(topology);
+		new Verifications() {
+			{
+				topology.run();
+			}
+		};
+	}
 
 }

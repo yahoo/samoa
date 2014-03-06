@@ -77,4 +77,8 @@ class SimpleEntranceProcessingItem implements EntranceProcessingItem {
         this.outputStream = stream;
         return this;
     }
+    
+    public Stream getOutputStream() {
+    	return this.outputStream;
+    }
 }

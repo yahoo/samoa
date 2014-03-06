@@ -1,3 +1,12 @@
+package com.yahoo.labs.samoa.topology.impl;
+
+import static org.junit.Assert.*;
+import mockit.Expectations;
+import mockit.Mocked;
+import mockit.Tested;
+
+import org.junit.Before;
+import org.junit.Test;
 /*
  * #%L
  * SAMOA
@@ -17,15 +26,6 @@
  * limitations under the License.
  * #L%
  */
-package com.yahoo.labs.samoa.topology.impl;
-
-import static org.junit.Assert.*;
-import mockit.Expectations;
-import mockit.Mocked;
-import mockit.Tested;
-
-import org.junit.Before;
-import org.junit.Test;
 
 import com.yahoo.labs.samoa.core.EntranceProcessor;
 
@@ -33,16 +33,16 @@ import com.yahoo.labs.samoa.core.EntranceProcessor;
  * @author Anh Thu Vu
  *
  */
-public class ThreadsTopologyTest {
+public class SimpleTopologyTest {
 
-	@Tested private ThreadsTopology topology;
+	@Tested private SimpleTopology topology;
 	
-	@Mocked private ThreadsEntranceProcessingItem entrancePi;
+	@Mocked private SimpleEntranceProcessingItem entrancePi;
 	@Mocked private EntranceProcessor entranceProcessor;
 	
 	@Before
 	public void setUp() throws Exception {
-		topology = new ThreadsTopology("TestTopology");
+		topology = new SimpleTopology("TestTopology");
 	}
 
 	@Test
