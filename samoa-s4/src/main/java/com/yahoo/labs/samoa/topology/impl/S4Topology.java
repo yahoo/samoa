@@ -43,29 +43,13 @@ public class S4Topology extends Topology {
 	private String _topologyName;
 
 	S4Topology(String topoName, String evalTask) {
-		super();
-		_topologyName = topoName;
+		super(topoName);
 		_evaluationTask = evalTask;
 		// TODO include app
-
 	}
 
 	S4Topology(String topoName) {
 		this(topoName, null);
-	}
-
-	@Override
-	public void setEvaluationTask(String evalTask) {
-		_evaluationTask = evalTask;
-	}
-
-	@Override
-	public String getEvaluationTask() {
-		return _evaluationTask;
-	}
-
-	public String getTopologyName() {
-		return _topologyName;
 	}
 
 	@Override
@@ -81,11 +65,5 @@ public class S4Topology extends Topology {
 //			logger.debug("ADDED COPY {}", i);
 //		}
 
-	}
-	
-	@Override
-	protected void addStream(Stream stream){
-		
-		this.streams.add(stream);
 	}
 }

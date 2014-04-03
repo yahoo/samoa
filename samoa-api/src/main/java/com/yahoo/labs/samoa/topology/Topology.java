@@ -29,13 +29,46 @@ import java.util.Set;
  */
 public abstract class Topology {
 
+	private String topoName;
     protected Set<Stream> streams;
     protected Set<IProcessingItem> processingItems;
+    protected Set<EntranceProcessingItem> entranceProcessingItems;
     private String task; // TODO: check if task is needed here
 
-    protected Topology() {
-        streams = new HashSet<Stream>();
-        processingItems = new HashSet<IProcessingItem>();
+    protected Topology(String name) {
+    	this.topoName = name;
+    	this.streams = new HashSet<Stream>();
+        this.processingItems = new HashSet<IProcessingItem>();
+        this.entranceProcessingItems = new HashSet<EntranceProcessingItem>();
+    }
+    
+    /**
+     * Gets the name of this topology
+     * 
+     * @return name of the topology
+     */
+    public String getTopologyName() {
+    	return this.topoName;
+    }
+    
+    /**
+     * Adds an Entrance processing item to the topology.
+     * 
+     * @param epi
+     * 			Entrance processing item
+     */
+    protected void addEntranceProcessingItem(EntranceProcessingItem epi) {
+    	this.entranceProcessingItems.add(epi);
+    	this.addProcessingItem(epi);
+    }
+    
+    /**
+     * Gets entrance processing items in the topology
+     * 
+     * @return the set of processing items
+     */
+    public Set<EntranceProcessingItem> getEntranceProcessingItems() {
+    	return this.entranceProcessingItems;
     }
 
     /**
@@ -59,6 +92,15 @@ public abstract class Topology {
     protected void addProcessingItem(IProcessingItem procItem, int parallelismHint) {
         this.processingItems.add(procItem);
     }
+    
+    /**
+     * Gets processing items in the topology (including entrance processing items)
+     * 
+     * @return the set of processing items
+     */
+    public Set<IProcessingItem> getProcessingItems() {
+    	return this.processingItems;
+    }
 
     /**
      * Add stream to topology.
@@ -67,6 +109,15 @@ public abstract class Topology {
      */
     protected void addStream(Stream stream) {
         this.streams.add(stream);
+    }
+    
+    /**
+     * Gets streams in the topology
+     * 
+     * @return the set of streams
+     */
+    public Set<Stream> getStreams() {
+    	return this.streams;
     }
 
     /**
@@ -85,14 +136,5 @@ public abstract class Topology {
      */
     public String getEvaluationTask() {
         return task;
-    }
-
-    /**
-     * Adds an EntrancePI to the topology.
-     * 
-     * @param epi
-     */
-    public void addEntrancePi(EntranceProcessingItem epi) {
-        this.addProcessingItem(epi);
-    }
+    }  
 }
