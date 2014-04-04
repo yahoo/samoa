@@ -33,7 +33,6 @@ public abstract class Topology {
     protected Set<Stream> streams;
     protected Set<IProcessingItem> processingItems;
     protected Set<EntranceProcessingItem> entranceProcessingItems;
-    private String task; // TODO: check if task is needed here
 
     protected Topology(String name) {
     	this.topoName = name;
@@ -118,23 +117,5 @@ public abstract class Topology {
      */
     public Set<Stream> getStreams() {
     	return this.streams;
-    }
-
-    /**
-     * Sets evaluation task.
-     * 
-     * @param task
-     */
-    public void setEvaluationTask(String task) {
-        this.task = task;
-    }
-
-    /**
-     * Gets evaluation task.
-     * 
-     * @return
-     */
-    public String getEvaluationTask() {
-        return task;
-    }  
+    } 
 }

@@ -35,10 +35,6 @@ public interface ITopology {
 
 	void addStream(Stream stream);
 	
-	public void setEvaluationTask(String task);
-	
-	public String getEvaluationTask() ;
-	
 	public void topologyInit();
 	
 }
