@@ -20,36 +20,24 @@ package com.yahoo.labs.samoa.topology.impl;
  * #L%
  */
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import org.apache.s4.core.util.AppConfig;
-import org.apache.s4.core.util.ParsingUtils;
-import org.apache.s4.deploy.DeploymentUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
+import com.yahoo.labs.samoa.topology.EntranceProcessingItem;
 import com.yahoo.labs.samoa.topology.IProcessingItem;
 import com.yahoo.labs.samoa.topology.Stream;
 import com.yahoo.labs.samoa.topology.Topology;
 
 public class S4Topology extends Topology {
 
-	//private static Logger logger = LoggerFactory.getLogger(S4Topology.class);
+    // private static Logger logger = LoggerFactory.getLogger(S4Topology.class);
+    private String _evaluationTask;
 
-	private String _evaluationTask;
-	private String _topologyName;
+    S4Topology(String topoName) {
+        this(topoName, null);
+    }
 
 	S4Topology(String topoName, String evalTask) {
 		super(topoName);
 		_evaluationTask = evalTask;
 		// TODO include app
-	}
-
-	S4Topology(String topoName) {
-		this(topoName, null);
 	}
 
 	@Override
@@ -66,4 +54,11 @@ public class S4Topology extends Topology {
 //		}
 
 	}
+
+    public EntranceProcessingItem getEntranceProcessingItem() {
+    	if (this.entranceProcessingItems == null) return null;
+    	if (this.entranceProcessingItems.size() < 1) return null;
+    	// TODO: support multiple entrance PIs
+        return (EntranceProcessingItem)this.entranceProcessingItems.toArray()[0];
+    }
 }

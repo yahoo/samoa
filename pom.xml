@@ -151,6 +151,9 @@
                         <root>samoa-samza</root>
                         <root>bin</root>
                     </roots>
+                    <excludes>
+                        <exclude>**/target/**</exclude>
+                    </excludes>
                 </configuration>
                 <executions>
                     <execution>
