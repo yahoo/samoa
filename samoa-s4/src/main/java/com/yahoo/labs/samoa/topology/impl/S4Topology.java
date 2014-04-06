@@ -56,9 +56,9 @@ public class S4Topology extends Topology {
 	}
 
     public EntranceProcessingItem getEntranceProcessingItem() {
-    	if (this.entranceProcessingItems == null) return null;
-    	if (this.entranceProcessingItems.size() < 1) return null;
+    	if (this.getEntranceProcessingItems() == null) return null;
+    	if (this.getEntranceProcessingItems().size() < 1) return null;
     	// TODO: support multiple entrance PIs
-        return (EntranceProcessingItem)this.entranceProcessingItems.toArray()[0];
+        return (EntranceProcessingItem)this.getEntranceProcessingItems().toArray()[0];
     }
 }
