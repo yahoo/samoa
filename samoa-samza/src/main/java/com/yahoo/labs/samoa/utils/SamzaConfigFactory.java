@@ -191,7 +191,7 @@ public class SamzaConfigFactory {
 		setFileSystem(map, filesystem);
 		
 		// Number of containers
-		setNumberOfContainers(map, pi.getParalellism(), this.piPerContainerRatio);
+		setNumberOfContainers(map, pi.getParallelism(), this.piPerContainerRatio);
 
 		return map;
 	}
@@ -210,7 +210,7 @@ public class SamzaConfigFactory {
 		setTaskInputs(map, SYSTEM_NAME+"."+epi.getName());
 
 		// Output from entrance task
-		SamzaStream outputStream = epi.getOutputStream();
+		SamzaStream outputStream = (SamzaStream)epi.getOutputStream();
 		StringBuilder allStreams = new StringBuilder();
 		boolean first = true;
 		for (SamzaSystemStream stream:outputStream.getSystemStreams()) {

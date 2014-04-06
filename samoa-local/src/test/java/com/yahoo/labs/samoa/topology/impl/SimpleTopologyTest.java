@@ -69,10 +69,7 @@ public class SimpleTopologyTest {
 		
 		new Expectations() {
 			{
-				entrancePi.getProcessor();
-				result=entranceProcessor;
-				entranceProcessor.onCreate(anyInt);
-				
+				entrancePi.onCreate(anyInt);	
 				entrancePi.startSendingEvents();
 			}
 		};

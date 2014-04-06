@@ -58,7 +58,7 @@ public class SimpleComponentFactoryTest {
 		ProcessingItem pi = factory.createPi(processor);
 		assertNotNull("ProcessingItem created is null.",pi);
 		assertEquals("ProcessingItem created is not a SimpleProcessingItem.",SimpleProcessingItem.class,pi.getClass());
-		assertEquals("Parallelism of PI is not 1",1,pi.getParalellism(),0);
+		assertEquals("Parallelism of PI is not 1",1,pi.getParallelism(),0);
 	}
 	
 	@Test
@@ -66,7 +66,7 @@ public class SimpleComponentFactoryTest {
 		ProcessingItem pi = factory.createPi(processor,parallelism);
 		assertNotNull("ProcessingItem created is null.",pi);
 		assertEquals("ProcessingItem created is not a SimpleProcessingItem.",SimpleProcessingItem.class,pi.getClass());
-		assertEquals("Parallelism of PI is not ",parallelism,pi.getParalellism(),0);
+		assertEquals("Parallelism of PI is not ",parallelism,pi.getParallelism(),0);
 	}
 	
 	@Test
