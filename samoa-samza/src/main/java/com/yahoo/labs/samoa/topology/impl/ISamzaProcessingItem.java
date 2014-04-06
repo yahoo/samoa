@@ -38,17 +38,7 @@ public interface ISamzaProcessingItem extends IProcessingItem {
 	 */
 	public int addOutputStream(SamzaStream stream);
 	
-	/**
-	 * Gets the name/id of this processing item
-	 * 
-	 * @return the name/id of this processing item
-	 */
-	public String getName();
-	
-	/**
-	 * Sets the name/id for this processing item
-	 * @param name
-	 *            the name/id of this processing item
-	 */
 	public void setName(String name);
+	
+	public String getName();
 }

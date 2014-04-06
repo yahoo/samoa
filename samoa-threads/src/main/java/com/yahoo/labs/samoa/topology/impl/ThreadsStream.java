@@ -26,6 +26,7 @@ import java.util.List;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 import com.yahoo.labs.samoa.core.ContentEvent;
+import com.yahoo.labs.samoa.topology.AbstractStream;
 import com.yahoo.labs.samoa.topology.IProcessingItem;
 import com.yahoo.labs.samoa.topology.Stream;
 import com.yahoo.labs.samoa.utils.StreamDestination;
@@ -35,13 +36,14 @@ import com.yahoo.labs.samoa.utils.StreamDestination;
  * @author Anh Thu Vu
  *
  */
-public class ThreadsStream implements Stream {
+public class ThreadsStream extends AbstractStream {
 	
 	private List<StreamDestination> destinations;
-	private int counter = 0;
+	private int eventCounter = 0;
 	private int maxCounter = 1;
 	
 	public ThreadsStream(IProcessingItem sourcePi) {
+		super(sourcePi);
 		destinations = new LinkedList<StreamDestination>();
 	}
 	
@@ -54,8 +56,18 @@ public class ThreadsStream implements Stream {
 		return this.destinations;
 	}
 
+	private synchronized int getNextCounter() {
+	 	if (maxCounter > 0 && eventCounter >= maxCounter) eventCounter = 0;
+	 	this.eventCounter++;
+	  	return this.eventCounter;
+	}
+	
 	@Override
 	public synchronized void put(ContentEvent event) {
+		this.put(event, this.getNextCounter());
+	}
+	
+	private synchronized void put(ContentEvent event, int counter) {
         ThreadsProcessingItem pi;
         for (StreamDestination destination:destinations) {
             pi = (ThreadsProcessingItem) destination.getProcessingItem();
@@ -79,7 +91,7 @@ public class ThreadsStream implements Stream {
 
 	@Override
 	public String getStreamId() {
-		return null;
+		return this.getName();
 	}
 	
 	private static int getPIIndexForKey(String key, int parallelism) {

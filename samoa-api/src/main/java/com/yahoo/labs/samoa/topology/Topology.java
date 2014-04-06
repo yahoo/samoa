@@ -30,9 +30,9 @@ import java.util.Set;
 public abstract class Topology {
 
 	private String topoName;
-    protected Set<Stream> streams;
-    protected Set<IProcessingItem> processingItems;
-    protected Set<EntranceProcessingItem> entranceProcessingItems;
+    private Set<Stream> streams;
+    private Set<IProcessingItem> processingItems;
+    private Set<EntranceProcessingItem> entranceProcessingItems;
 
     protected Topology(String name) {
     	this.topoName = name;

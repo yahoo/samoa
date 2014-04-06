@@ -71,7 +71,7 @@ public class ThreadsProcessingItem implements ProcessingItem {
 	}
 	
 	@Override
-	public int getParalellism() {
+	public int getParallelism() {
 		return this.parallelismHint;
 	}
 	

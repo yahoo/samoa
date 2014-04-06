@@ -26,6 +26,7 @@ package com.yahoo.labs.samoa.topology.impl;
 
 import com.yahoo.labs.samoa.core.ContentEvent;
 import com.yahoo.labs.samoa.core.Processor;
+import com.yahoo.labs.samoa.topology.AbstractProcessingItem;
 import com.yahoo.labs.samoa.topology.IProcessingItem;
 import com.yahoo.labs.samoa.topology.ProcessingItem;
 import com.yahoo.labs.samoa.topology.Stream;
@@ -36,67 +37,52 @@ import com.yahoo.labs.samoa.utils.StreamDestination;
  *
  * @author abifet
  */
-class SimpleProcessingItem implements ProcessingItem {
-	
-    protected Processor processor;
-    private int processingItemParalellism;
+class SimpleProcessingItem extends AbstractProcessingItem {
     private IProcessingItem[] arrayProcessingItem;
 
+    SimpleProcessingItem(Processor processor) {
+        super(processor);
+    }
+    
+    SimpleProcessingItem(Processor processor, int parallelism) {
+    	super(processor);
+        this.setParallelism(parallelism);
+    }
+    
     public IProcessingItem getProcessingItem(int i) {
         return arrayProcessingItem[i];
     }
-
-    SimpleProcessingItem(Processor processor, int paralellism) {
-        this.processor = processor;
-        this.processingItemParalellism = paralellism;
-    }
     
-    private ProcessingItem addInputStream(Stream inputStream, PartitioningScheme scheme) {
-		StreamDestination destination = new StreamDestination(this, this.processingItemParalellism, scheme);
+    @Override
+    protected ProcessingItem addInputStream(Stream inputStream, PartitioningScheme scheme) {
+		StreamDestination destination = new StreamDestination(this, this.getParallelism(), scheme);
 		((SimpleStream)inputStream).addDestination(destination);
 		return this;
 	}
 
-    public ProcessingItem connectInputShuffleStream(Stream inputStream) {
-    	this.addInputStream(inputStream, PartitioningScheme.SHUFFLE);
-        return this;
-    }
-
-    public ProcessingItem connectInputKeyStream(Stream inputStream) {
-    	this.addInputStream(inputStream, PartitioningScheme.GROUP_BY_KEY);
-        return this;
-    }
-
-    public ProcessingItem connectInputAllStream(Stream inputStream) {
-    	this.addInputStream(inputStream, PartitioningScheme.BROADCAST);
-        return this;
-    }
-
-    public int getParalellism() {
-        return processingItemParalellism;
-    }
-
-    public Processor getProcessor() {
-        return this.processor;
-    }
-
     public SimpleProcessingItem copy() {
-        SimpleProcessingItem ret = new SimpleProcessingItem(this.processor.newProcessor(this.processor), 0); // this.getParalellism());
+    	Processor processor = this.getProcessor();
+        SimpleProcessingItem ret = new SimpleProcessingItem(processor.newProcessor(processor));
         return ret;
     }
 
     public void processEvent(ContentEvent event, int counter) {
-        int paralellism = this.getParalellism();
-        if (this.arrayProcessingItem == null && paralellism > 0) {
+    	
+        int parallelism = this.getParallelism();
+        //System.out.println("Process event "+event+" (isLast="+event.isLastEvent()+") with counter="+counter+" while parallelism="+parallelism);
+        if (this.arrayProcessingItem == null && parallelism > 0) {
             //Init processing elements, the first time they are needed
-            this.arrayProcessingItem = new IProcessingItem[paralellism];
-            for (int j = 0; j < paralellism; j++) {
+            this.arrayProcessingItem = new IProcessingItem[parallelism];
+            for (int j = 0; j < parallelism; j++) {
                 arrayProcessingItem[j] = this.copy();
                 arrayProcessingItem[j].getProcessor().onCreate(j);
                 //System.out.println(j + " PROCESSOR create " + arrayProcessingItem[j].getProcessor());
             }
         }
         if (this.arrayProcessingItem != null) {
+        	IProcessingItem pi = this.getProcessingItem(counter);
+        	Processor p = pi.getProcessor();
+        	//System.out.println("PI="+pi+", p="+p);
             this.getProcessingItem(counter).getProcessor().process(event);
         }
     }

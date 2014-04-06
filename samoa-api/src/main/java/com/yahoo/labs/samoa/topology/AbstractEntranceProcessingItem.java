@@ -1,5 +1,26 @@
 package com.yahoo.labs.samoa.topology;
 
+/*
+ * #%L
+ * SAMOA
+ * %%
+ * Copyright (C) 2013 - 2014 Yahoo! Inc.
+ * %%
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ * #L%
+ */
+
+import com.yahoo.labs.samoa.core.ContentEvent;
 import com.yahoo.labs.samoa.core.EntranceProcessor;
 
 /**
@@ -7,46 +28,41 @@ import com.yahoo.labs.samoa.core.EntranceProcessor;
  *
  */
 public abstract class AbstractEntranceProcessingItem implements EntranceProcessingItem {
-	protected int parallelism;
-	protected EntranceProcessor processor;
-	protected String name;
-	protected Stream outputStream;
+	private EntranceProcessor processor;
+	private String name;
+	private Stream outputStream;
+	
+	private int count = 0;
 	
 	/*
 	 * Constructor
 	 */
+	public AbstractEntranceProcessingItem() {
+		this(null);
+	}
 	public AbstractEntranceProcessingItem(EntranceProcessor processor) {
 		this.processor = processor;
-		this.parallelism = 1; // default to 1
 	}
 	
 	/*
-	 * Init & destroy
+	 * Create & destroy
 	 */
-	public void onCreate() {
-		// Do nothing
+	public void onCreate(int id) {
+		processor.onCreate(id);
 	}
 	
 	public void onDestroy() {
-		// Do nothing
+		// do nothing
 	}
 	
 	/*
 	 * Processor
 	 */
+	public void setProcessor(EntranceProcessor p) {
+		this.processor = p;
+	}
 	public EntranceProcessor getProcessor() {
 		return this.processor;
-	}
-	
-	/*
-	 * Parallelism 
-	 */
-	public void setParallelism(int parallelism) {
-		this.parallelism = parallelism;
-	}
-	
-	public int getParallelism() {
-		return this.parallelism;
 	}
 	
 	/*
@@ -64,12 +80,10 @@ public abstract class AbstractEntranceProcessingItem implements EntranceProcessi
 	 * Output Stream
 	 */
 	public EntranceProcessingItem setOutputStream(Stream outputStream) {
-		if (this.outputStream != null) {
-			if (this.outputStream == outputStream) return;
-			else
-				throw new IllegalStateException("Cannot overwrite output stream of EntranceProcessingItem");
-		}
-		this.outputStream = outputStream;
+		if (this.outputStream != null && this.outputStream != outputStream) {
+			throw new IllegalStateException("Cannot overwrite output stream of EntranceProcessingItem");
+		} else 
+			this.outputStream = outputStream;
 		return this;
 	}
 	
@@ -82,9 +96,27 @@ public abstract class AbstractEntranceProcessingItem implements EntranceProcessi
 	 */
 	public boolean injectNextEvent() {
 		if (processor.hasNext()) {
-			outputStream.put(processor.nextEvent());
+			count++;
+			ContentEvent event = processor.nextEvent();
+			outputStream.put(event);
 			return true;
 		}
 		return false;
+	}
+	
+	public void start() {
+		while (!processor.isFinished()) 
+			if (!this.injectNextEvent())
+				try {
+					Thread.sleep(100);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+					break;
+				}
+		// Inject the last event
+		System.out.println("Count = "+count);
+		ContentEvent event = processor.nextEvent();
+		outputStream.put(event);
+		System.out.println("Last event "+event+" ("+event.isLastEvent()+")");
 	}
 }

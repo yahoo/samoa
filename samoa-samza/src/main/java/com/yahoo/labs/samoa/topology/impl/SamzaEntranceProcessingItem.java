@@ -39,6 +39,7 @@ import org.slf4j.LoggerFactory;
 import com.yahoo.labs.samoa.core.ContentEvent;
 import com.yahoo.labs.samoa.core.EntranceProcessor;
 import com.yahoo.labs.samoa.learners.InstanceContentEvent;
+import com.yahoo.labs.samoa.topology.AbstractEntranceProcessingItem;
 import com.yahoo.labs.samoa.topology.EntranceProcessingItem;
 import com.yahoo.labs.samoa.topology.Stream;
 import com.yahoo.labs.samoa.utils.SamzaConfigFactory;
@@ -51,49 +52,22 @@ import com.yahoo.labs.samoa.utils.SystemsUtils;
  * @author Anh Thu Vu
  *
  */
-public class SamzaEntranceProcessingItem implements EntranceProcessingItem, ISamzaProcessingItem,
-													Serializable, StreamTask, InitableTask {
+public class SamzaEntranceProcessingItem extends AbstractEntranceProcessingItem 
+implements ISamzaProcessingItem, Serializable, StreamTask, InitableTask {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 7157734520046135039L;
 	
-	private EntranceProcessor processor;
-	private String name;
-	private SamzaStream outputStream;
-	
 	public SamzaEntranceProcessingItem(EntranceProcessor processor) {
-		this.processor = processor;
+		super(processor);
 	}
 	
 	// Need this so Samza can initialize a StreamTask
-	public SamzaEntranceProcessingItem() {} 
-	
-	@Override
-	public EntranceProcessor getProcessor() {
-		return this.processor;
-	}
-	
-	@Override
-	public EntranceProcessingItem setOutputStream(Stream stream) {
-		this.outputStream = (SamzaStream) stream;
-		return this;
-	}
-	
-	public SamzaStream getOutputStream() {
-		return this.outputStream;
-	}
-
-	@Override
-	public String getName() {
-		return this.name;
-	}
-	
-	@Override
-	public void setName(String name) {
-		this.name = name;
-	}
+	public SamzaEntranceProcessingItem() {
+		super(null);
+	} 
 	
 	@Override
 	public int addOutputStream(SamzaStream stream) {
@@ -119,9 +93,9 @@ public class SamzaEntranceProcessingItem implements EntranceProcessingItem, ISam
 		private String name;
 		
 		public SerializationProxy(SamzaEntranceProcessingItem epi) {
-			this.processor = epi.processor;
-			this.outputStream = epi.outputStream;
-			this.name = epi.name;
+			this.processor = epi.getProcessor();
+			this.outputStream = (SamzaStream) epi.getOutputStream();
+			this.name = epi.getName();
 		}
 	}
 	
@@ -135,23 +109,27 @@ public class SamzaEntranceProcessingItem implements EntranceProcessingItem, ISam
             												// local mode and ignore this
 			SystemsUtils.setHadoopConfigHome(yarnConfHome);
 		
+		// Get name
 		String filename = config.get(SamzaConfigFactory.FILE_KEY);
 		String filesystem = config.get(SamzaConfigFactory.FILESYSTEM_KEY);
+		String name = config.get(SamzaConfigFactory.JOB_NAME_KEY);
+		this.setName(name);
 		
-		this.name = config.get(SamzaConfigFactory.JOB_NAME_KEY);
+		// Deserialize
 		SerializationProxy wrapper = (SerializationProxy) SystemsUtils.deserializeObjectFromFileAndKey(filesystem, filename, name);
-		this.outputStream = wrapper.outputStream;
-		this.outputStream.onCreate();
+		
+		// Output stream
+		SamzaStream outputStream = wrapper.outputStream;
+		this.setOutputStream(outputStream);
+		outputStream.onCreate();
 	}
 
 	@Override
 	public void process(IncomingMessageEnvelope envelope, MessageCollector collector, TaskCoordinator coordinator) throws Exception {
-		this.outputStream.setCollector(collector);
+		((SamzaStream)this.getOutputStream()).setCollector(collector);
 		InstanceContentEvent event = (InstanceContentEvent) envelope.getMessage();
-		this.outputStream.put(event);
+		this.getOutputStream().put(event);
 	}
-	
-	
 	
 	/*
 	 * Implementation of Samza's SystemConsumer to get events from source
@@ -184,11 +162,13 @@ public class SamzaEntranceProcessingItem implements EntranceProcessingItem, ISam
 				                                            // local mode and ignore this
 				SystemsUtils.setHadoopConfigHome(yarnConfHome);
 			
+			// Get name
 			String filename = config.get(SamzaConfigFactory.FILE_KEY);
 			String filesystem = config.get(SamzaConfigFactory.FILESYSTEM_KEY);
 			String name = config.get(SamzaConfigFactory.JOB_NAME_KEY);
-			SerializationProxy wrapper = (SerializationProxy) SystemsUtils.deserializeObjectFromFileAndKey(filesystem, filename, name);
 			
+			// Deserialize
+			SerializationProxy wrapper = (SerializationProxy) SystemsUtils.deserializeObjectFromFileAndKey(filesystem, filename, name);
 			this.entranceProcessor = wrapper.processor;
 			this.entranceProcessor.onCreate(0);
 			
@@ -227,7 +207,7 @@ public class SamzaEntranceProcessingItem implements EntranceProcessingItem, ISam
 			while(!this.entranceProcessor.isFinished()) {
 				messageCnt = this.getNumMessagesInQueue(systemStreamPartition);
 				if (this.entranceProcessor.hasNext() && messageCnt < 10000) {
-					this.put(systemStreamPartition, new IncomingMessageEnvelope(systemStreamPartition,null, null,this.entranceProcessor.nextEvent()));
+					this.put(systemStreamPartition, new IncomingMessageEnvelope(systemStreamPartition, null, null,this.entranceProcessor.nextEvent()));
 				} else {
 					try {
 						Thread.sleep(100);
@@ -238,7 +218,7 @@ public class SamzaEntranceProcessingItem implements EntranceProcessingItem, ISam
 			}
 			
 			// Send last event
-			this.put(systemStreamPartition, new IncomingMessageEnvelope(systemStreamPartition,null, null,this.entranceProcessor.nextEvent()));
+			this.put(systemStreamPartition, new IncomingMessageEnvelope(systemStreamPartition, null, null,this.entranceProcessor.nextEvent()));
 		}
 		
 	}

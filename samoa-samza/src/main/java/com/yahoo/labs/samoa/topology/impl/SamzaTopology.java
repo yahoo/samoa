@@ -54,8 +54,8 @@ public class SamzaTopology extends Topology {
 	 */
 	public Set<IProcessingItem> getNonEntranceProcessingItems() throws Exception {
 		Set<IProcessingItem> copiedSet = new HashSet<IProcessingItem>();
-		copiedSet.addAll(this.processingItems);
-		boolean result = copiedSet.removeAll(this.entranceProcessingItems);
+		copiedSet.addAll(this.getProcessingItems());
+		boolean result = copiedSet.removeAll(this.getEntranceProcessingItems());
 		if (!result) {
 			throw new Exception("Failed extracting the set of non-entrance processing items");
 		}

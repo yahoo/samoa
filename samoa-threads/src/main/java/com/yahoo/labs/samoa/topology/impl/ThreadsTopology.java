@@ -48,10 +48,10 @@ public class ThreadsTopology extends Topology {
     }
 
     protected EntranceProcessingItem getEntranceProcessingItem() {
-    	if (this.entranceProcessingItems == null || this.entranceProcessingItems.size() < 1)
+    	if (this.getEntranceProcessingItems() == null || this.getEntranceProcessingItems().size() < 1)
     		return null;
     	
-    	return (EntranceProcessingItem) this.entranceProcessingItems.toArray()[0];
+    	return (EntranceProcessingItem) this.getEntranceProcessingItems().toArray()[0];
     }
 
     @Override
@@ -64,7 +64,7 @@ public class ThreadsTopology extends Topology {
      * replicas (ThreadsProcessingItemInstance)
      */
     private void setupProcessingItemInstances() {
-    	for (IProcessingItem pi:this.processingItems) {
+    	for (IProcessingItem pi:this.getProcessingItems()) {
     		if (pi instanceof ThreadsProcessingItem) {
     			ThreadsProcessingItem tpi = (ThreadsProcessingItem) pi;
     			tpi.setupInstances();
