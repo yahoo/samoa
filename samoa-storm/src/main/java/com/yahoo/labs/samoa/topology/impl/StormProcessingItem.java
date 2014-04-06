@@ -188,7 +188,7 @@ class StormProcessingItem implements ProcessingItem, StormTopologyNode {
 	
 	//not used by samoa-storm
 	@Override
-	public int getParalellism() {
+	public int getParallelism() {
 		return this.parallelismHint;
 	}
 
