@@ -33,25 +33,23 @@ import backtype.storm.utils.Utils;
 
 import com.yahoo.labs.samoa.core.ContentEvent;
 import com.yahoo.labs.samoa.core.EntranceProcessor;
+import com.yahoo.labs.samoa.topology.AbstractEntranceProcessingItem;
 import com.yahoo.labs.samoa.topology.EntranceProcessingItem;
 import com.yahoo.labs.samoa.topology.Stream;
 
 /**
  * EntranceProcessingItem implementation for Storm.
  */
-class StormEntranceProcessingItem implements StormTopologyNode, EntranceProcessingItem {
-    private final EntranceProcessor entranceProcessor;
+class StormEntranceProcessingItem extends AbstractEntranceProcessingItem implements StormTopologyNode {
     private final StormEntranceSpout piSpout;
     private final String piSpoutUuidStr;
-
-    private String name;
 
     StormEntranceProcessingItem(EntranceProcessor processor) {
         this(processor, UUID.randomUUID().toString());
     }
 
     StormEntranceProcessingItem(EntranceProcessor processor, String friendlyId) {
-        this.entranceProcessor = processor;
+    	super(processor);
         this.piSpoutUuidStr = friendlyId;
         this.piSpout = new StormEntranceSpout(processor);
     }
@@ -62,12 +60,12 @@ class StormEntranceProcessingItem implements StormTopologyNode, EntranceProcessi
         piSpout.setOutputStream((StormStream) stream);
         return this;
     }
-
+    
     @Override
-    public EntranceProcessor getProcessor() {
-        return this.entranceProcessor;
+    public Stream getOutputStream() {
+    	return piSpout.getOutputStream();
     }
-
+    
     @Override
     public void addToTopology(StormTopology topology, int parallelismHint) {
         topology.getStormBuilder().setSpout(piSpoutUuidStr, piSpout, parallelismHint);
@@ -88,10 +86,6 @@ class StormEntranceProcessingItem implements StormTopologyNode, EntranceProcessi
         StringBuilder sb = new StringBuilder(super.toString());
         sb.insert(0, String.format("id: %s, ", piSpoutUuidStr));
         return sb.toString();
-    }
-
-    public String getName() {
-        return this.name;
     }
 
     /**

@@ -39,8 +39,11 @@ public abstract class AbstractProcessingItem implements ProcessingItem {
 		this(null);
 	}
 	public AbstractProcessingItem(Processor processor) {
+		this(processor,1);
+	}
+	public AbstractProcessingItem(Processor processor, int parallelism) {
 		this.processor = processor;
-		this.parallelism = 1; // default to 1
+		this.parallelism = parallelism;
 	}
 	
 	/*
