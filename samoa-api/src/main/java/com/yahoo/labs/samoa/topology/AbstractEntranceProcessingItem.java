@@ -32,8 +32,6 @@ public abstract class AbstractEntranceProcessingItem implements EntranceProcessi
 	private String name;
 	private Stream outputStream;
 	
-	private int count = 0;
-	
 	/*
 	 * Constructor
 	 */
@@ -96,7 +94,6 @@ public abstract class AbstractEntranceProcessingItem implements EntranceProcessi
 	 */
 	public boolean injectNextEvent() {
 		if (processor.hasNext()) {
-			count++;
 			ContentEvent event = processor.nextEvent();
 			outputStream.put(event);
 			return true;
@@ -114,9 +111,7 @@ public abstract class AbstractEntranceProcessingItem implements EntranceProcessi
 					break;
 				}
 		// Inject the last event
-		System.out.println("Count = "+count);
 		ContentEvent event = processor.nextEvent();
 		outputStream.put(event);
-		System.out.println("Last event "+event+" ("+event.isLastEvent()+")");
 	}
 }
