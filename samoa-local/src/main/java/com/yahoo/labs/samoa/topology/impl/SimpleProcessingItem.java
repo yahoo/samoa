@@ -29,16 +29,15 @@ import com.yahoo.labs.samoa.core.Processor;
 import com.yahoo.labs.samoa.topology.IProcessingItem;
 import com.yahoo.labs.samoa.topology.ProcessingItem;
 import com.yahoo.labs.samoa.topology.Stream;
+import com.yahoo.labs.samoa.utils.PartitioningScheme;
+import com.yahoo.labs.samoa.utils.StreamDestination;
 
 /**
  *
  * @author abifet
  */
 class SimpleProcessingItem implements ProcessingItem {
-
-    public static final int SHUFFLE = 0;
-    public static final int GROUP_BY_KEY = 1;
-    public static final int BROADCAST = 2;
+	
     protected Processor processor;
     private int processingItemParalellism;
     private IProcessingItem[] arrayProcessingItem;
@@ -51,22 +50,25 @@ class SimpleProcessingItem implements ProcessingItem {
         this.processor = processor;
         this.processingItemParalellism = paralellism;
     }
+    
+    private ProcessingItem addInputStream(Stream inputStream, PartitioningScheme scheme) {
+		StreamDestination destination = new StreamDestination(this, this.processingItemParalellism, scheme);
+		((SimpleStream)inputStream).addDestination(destination);
+		return this;
+	}
 
     public ProcessingItem connectInputShuffleStream(Stream inputStream) {
-        SimpleStream stream = (SimpleStream) inputStream;
-        stream.add(this, SHUFFLE, this.processingItemParalellism);
+    	this.addInputStream(inputStream, PartitioningScheme.SHUFFLE);
         return this;
     }
 
     public ProcessingItem connectInputKeyStream(Stream inputStream) {
-        SimpleStream stream = (SimpleStream) inputStream;
-        stream.add(this, GROUP_BY_KEY, this.processingItemParalellism);
+    	this.addInputStream(inputStream, PartitioningScheme.GROUP_BY_KEY);
         return this;
     }
 
     public ProcessingItem connectInputAllStream(Stream inputStream) {
-        SimpleStream stream = (SimpleStream) inputStream;
-        stream.add(this, BROADCAST, this.processingItemParalellism);
+    	this.addInputStream(inputStream, PartitioningScheme.BROADCAST);
         return this;
     }
 

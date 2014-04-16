@@ -33,12 +33,10 @@ import com.yahoo.labs.samoa.topology.Topology;
 public class StormTopology extends Topology {
 	
 	private TopologyBuilder builder;
-	private final String topologyName;
 	
 	public StormTopology(String topologyName){
-		super();
+		super(topologyName);
 		this.builder = new TopologyBuilder();
-		this.topologyName = topologyName;
 	}
 	
 	@Override
@@ -50,9 +48,5 @@ public class StormTopology extends Topology {
 	
 	public TopologyBuilder getStormBuilder(){
 		return builder;
-	}
-	
-	public String getTopologyName(){
-		return topologyName;
 	}
 }

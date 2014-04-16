@@ -29,26 +29,23 @@ import com.yahoo.labs.samoa.topology.Topology;
 
 public class SimpleTopology extends Topology {
 
-    public String topologyName;
-    private SimpleEntranceProcessingItem entrancePi; // TODO allow multiple EntrancePIs
-
     public void run() {
-        while (this.entrancePi.injectNextEvent())
-            // inject events from the EntrancePI
-            ;
+    	if (this.entranceProcessingItems == null)
+    		throw new IllegalStateException("You need to set entrance PI before running the topology.");
+    	if (this.entranceProcessingItems.size() != 1)
+    		throw new IllegalStateException("SimpleTopology supports 1 entrance PI only. Number of entrance PIs is "+this.entranceProcessingItems.size());
+    	
+    	SimpleEntranceProcessingItem entrancePi = (SimpleEntranceProcessingItem) this.entranceProcessingItems.toArray()[0];
+    	entrancePi.getProcessor().onCreate(0); // id=0 as it is not used in simple mode
+        entrancePi.startSendingEvents();
     }
 
     SimpleTopology(String topoName) {
-        this.topologyName = topoName;
+        super(topoName);
     }
-
-    public EntranceProcessingItem getEntranceProcessingItem() {
-        return entrancePi;
-    }
-
+    
     @Override
-    public void addEntrancePi(EntranceProcessingItem epi) {
-        this.entrancePi = (SimpleEntranceProcessingItem) epi;
-        super.addProcessingItem(epi);
+    protected void addEntranceProcessingItem(EntranceProcessingItem epi) {
+    	super.addEntranceProcessingItem(epi);
     }
 }

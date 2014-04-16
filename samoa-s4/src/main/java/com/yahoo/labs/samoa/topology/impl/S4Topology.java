@@ -29,61 +29,36 @@ public class S4Topology extends Topology {
 
     // private static Logger logger = LoggerFactory.getLogger(S4Topology.class);
     private String _evaluationTask;
-    private String _topologyName;
-    private S4EntranceProcessingItem entrancePi;
-
-    S4Topology(String topoName, String evalTask) {
-        super();
-        _topologyName = topoName;
-        _evaluationTask = evalTask;
-        // TODO include app
-    }
 
     S4Topology(String topoName) {
         this(topoName, null);
     }
 
-    @Override
-    public void setEvaluationTask(String evalTask) {
-        _evaluationTask = evalTask;
-    }
+	S4Topology(String topoName, String evalTask) {
+		super(topoName);
+		_evaluationTask = evalTask;
+		// TODO include app
+	}
 
-    @Override
-    public String getEvaluationTask() {
-        return _evaluationTask;
-    }
+	@Override
+	protected void addProcessingItem(IProcessingItem procItem) {
+		// TODO add here the paralelism
+		// the parallelism will be implemented by seting the amount of
+		// processing items to be instantiated
+		// If it is one use a singleton an instantiate in one of the partitions
+		//
+		super.addProcessingItem(procItem);
+//		for (int i = 1; i < procItem.getParalellism(); i++) {
+//			super.addProcessingItem(procItem.copy());
+//			logger.debug("ADDED COPY {}", i);
+//		}
 
-    public String getTopologyName() {
-        return _topologyName;
-    }
-
-    @Override
-    protected void addProcessingItem(IProcessingItem procItem) {
-        // TODO add here the paralelism
-        // the parallelism will be implemented by seting the amount of
-        // processing items to be instantiated
-        // If it is one use a singleton an instantiate in one of the partitions
-        //
-        super.addProcessingItem(procItem);
-        // for (int i = 1; i < procItem.getParalellism(); i++) {
-        // super.addProcessingItem(procItem.copy());
-        // logger.debug("ADDED COPY {}", i);
-        // }
-
-    }
-
-    @Override
-    protected void addStream(Stream stream) {
-        this.streams.add(stream);
-    }
-
-    @Override
-    public void addEntrancePi(EntranceProcessingItem epi) {
-        this.entrancePi = (S4EntranceProcessingItem) epi;
-        super.addEntrancePi(epi);
-    }
+	}
 
     public EntranceProcessingItem getEntranceProcessingItem() {
-        return entrancePi;
+    	if (this.entranceProcessingItems == null) return null;
+    	if (this.entranceProcessingItems.size() < 1) return null;
+    	// TODO: support multiple entrance PIs
+        return (EntranceProcessingItem)this.entranceProcessingItems.toArray()[0];
     }
 }
