@@ -59,11 +59,12 @@ public class SamzaStream extends AbstractStream implements Serializable  {
 	
 	public SamzaStream(IProcessingItem sourcePi) {
 		super(sourcePi);
-		ISamzaProcessingItem samzaPi = (ISamzaProcessingItem) sourcePi;
+		//Get name/id for this stream
+		SamzaProcessingNode samzaPi = (SamzaProcessingNode) sourcePi;
 		int index = samzaPi.addOutputStream(this);
-		
 		String streamName = samzaPi.getName()+"-"+Integer.toString(index);
 		this.setName(streamName);
+		// init list of SamzaSystemStream
 		systemStreams = new ArrayList<SamzaSystemStream>();
 	}
 	

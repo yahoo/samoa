@@ -53,8 +53,7 @@ import com.yahoo.labs.samoa.utils.SystemsUtils;
  *
  */
 public class SamzaEntranceProcessingItem extends AbstractEntranceProcessingItem 
-implements ISamzaProcessingItem, Serializable, StreamTask, InitableTask {
-
+implements SamzaProcessingNode, Serializable, StreamTask, InitableTask {
 	/**
 	 * 
 	 */
@@ -139,14 +138,13 @@ implements ISamzaProcessingItem, Serializable, StreamTask, InitableTask {
 	/* Current implementation: buffer the incoming events and send a batch 
 	 * of them when poll() is called by Samza system.
 	 * 
-	 * Currently I impose a soft limit on the size of the buffer:
+	 * Currently: it has a "soft" limit on the size of the buffer:
 	 * when the buffer size reaches the limit, the reading thread will sleep
 	 * for 100ms.
 	 * A hard limit can be achieved by overriding the method
 	 * protected BlockingQueue<IncomingMessageEnvelope> newBlockingQueue()
 	 * of BlockingEnvelopeMap
-	 * Then we have to stop reading (getting events from EntranceProcessor)
-	 * when the queue/buffer is full.
+	 * But then we have handle the case when the queue is full.
 	 * 
 	 */
 	public static class SamoaSystemConsumer extends BlockingEnvelopeMap {

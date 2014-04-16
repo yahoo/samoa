@@ -28,7 +28,7 @@ import com.yahoo.labs.samoa.topology.IProcessingItem;
  * 
  * @author Anh Thu Vu
  */
-public interface ISamzaProcessingItem extends IProcessingItem {
+public interface SamzaProcessingNode extends IProcessingItem {
 	/**
 	 * Registers an output stream with this processing item
 	 * 
@@ -38,7 +38,19 @@ public interface ISamzaProcessingItem extends IProcessingItem {
 	 */
 	public int addOutputStream(SamzaStream stream);
 	
-	public void setName(String name);
-	
+	/**
+	 * Gets the name/id of this processing item
+	 * 
+	 * @return the name/id of this processing item
+	 */
+	// TODO: include getName() and setName() in IProcessingItem and/or AbstractEPI/PI
 	public String getName();
+	
+	/**
+	 * Sets the name/id for this processing item
+	 * @param name
+	 *            the name/id of this processing item
+	 */
+	// TODO: include getName() and setName() in IProcessingItem and/or AbstractEPI/PI
+	public void setName(String name);
 }

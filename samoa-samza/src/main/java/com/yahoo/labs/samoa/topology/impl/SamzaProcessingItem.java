@@ -52,7 +52,7 @@ import org.apache.samza.task.TaskCoordinator;
  * @author Anh Thu Vu
  */
 public class SamzaProcessingItem extends AbstractProcessingItem 
-implements ISamzaProcessingItem, Serializable, StreamTask, InitableTask {
+implements SamzaProcessingNode, Serializable, StreamTask, InitableTask {
 	
 	/**
 	 * 
