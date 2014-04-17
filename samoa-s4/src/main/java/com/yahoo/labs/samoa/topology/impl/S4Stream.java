@@ -29,7 +29,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.yahoo.labs.samoa.core.ContentEvent;
-import com.yahoo.labs.samoa.topology.Stream;
+import com.yahoo.labs.samoa.topology.AbstractStream;
 
 /**
  * S4 Platform specific stream.
@@ -37,7 +37,7 @@ import com.yahoo.labs.samoa.topology.Stream;
  * @author severien
  *
  */
-public class S4Stream implements Stream {
+public class S4Stream extends AbstractStream {
 
 	public static final int SHUFFLE = 0;
 	public static final int GROUP_BY_KEY = 1;
@@ -48,7 +48,6 @@ public class S4Stream implements Stream {
 
 	private S4DoTask app;
 	private int processingItemParalellism;
-	private String streamID;
 	private int shuffleCounter;
 
 	private static final String NAME = "STREAM-";
@@ -63,7 +62,7 @@ public class S4Stream implements Stream {
 		this.processingItemParalellism = 1;
 		this.shuffleCounter = 0;
 		this.streams = new ArrayList<StreamType>();
-		this.streamID = NAME+OBJ_COUNTER;
+		this.setStreamId(NAME+OBJ_COUNTER);
 		OBJ_COUNTER++;
 	}
 	
@@ -73,7 +72,7 @@ public class S4Stream implements Stream {
 		this.processingItemParalellism = 1;
 		this.shuffleCounter = 0;
 		this.streams = new ArrayList<StreamType>();
-		this.streamID = NAME+OBJ_COUNTER;
+		this.setStreamId(NAME+OBJ_COUNTER);
 		OBJ_COUNTER++;
 		
 	}
@@ -151,11 +150,6 @@ public class S4Stream implements Stream {
 			
 		}
 
-	}
-
-	@Override
-	public String getStreamId() {
-		return this.streamID;
 	}
 
 	/**

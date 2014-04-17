@@ -4,6 +4,7 @@ import static org.junit.Assert.*;
 
 import java.util.Set;
 
+import mockit.NonStrictExpectations;
 import mockit.Expectations;
 import mockit.Mocked;
 import mockit.Tested;
@@ -67,9 +68,17 @@ public class SimpleTopologyTest {
 	public void testRun() {
 		topology.addEntranceProcessingItem(entrancePi);
 		
+		new NonStrictExpectations() {
+			{
+				entrancePi.getProcessor();
+				result=entranceProcessor;
+				
+			}
+		};
+		
 		new Expectations() {
 			{
-				entrancePi.onCreate(anyInt);	
+				entranceProcessor.onCreate(anyInt);	
 				entrancePi.startSendingEvents();
 			}
 		};

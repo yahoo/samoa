@@ -24,6 +24,7 @@ import com.yahoo.labs.samoa.core.ContentEvent;
 import com.yahoo.labs.samoa.core.EntranceProcessor;
 
 /**
+ * Helper class for EntranceProcessingItem implementation.
  * @author Anh Thu Vu
  *
  */
@@ -43,22 +44,21 @@ public abstract class AbstractEntranceProcessingItem implements EntranceProcessi
 	}
 	
 	/*
-	 * Create & destroy
-	 */
-	public void onCreate(int id) {
-		processor.onCreate(id);
-	}
-	
-	public void onDestroy() {
-		// do nothing
-	}
-	
-	/*
 	 * Processor
 	 */
-	public void setProcessor(EntranceProcessor p) {
-		this.processor = p;
+	/**
+	 * Set the entrance processor for this EntranceProcessingItem
+	 * @param processor
+	 * 			the processor
+	 */
+	protected void setProcessor(EntranceProcessor processor) {
+		this.processor = processor;
 	}
+	
+	/**
+	 * Get the EntranceProcessor of this EntranceProcessingItem.
+	 * @return the EntranceProcessor
+	 */
 	public EntranceProcessor getProcessor() {
 		return this.processor;
 	}
@@ -66,16 +66,30 @@ public abstract class AbstractEntranceProcessingItem implements EntranceProcessi
 	/*
 	 * Name/ID
 	 */
+	/**
+	 * Set the name (or ID) of this EntranceProcessingItem
+	 * @param name
+	 */
 	public void setName(String name) {
 		this.name = name;
 	}
 	
+	/**
+	 * Get the name (or ID) of this EntranceProcessingItem
+	 * @return the name (or ID)
+	 */
 	public String getName() {
 		return this.name;
 	}
 	
 	/*
 	 * Output Stream
+	 */
+	/**
+	 * Set the output stream of this EntranceProcessingItem.
+	 * An EntranceProcessingItem should have only 1 single output stream and
+	 * should not be re-assigned.
+	 * @return this EntranceProcessingItem
 	 */
 	public EntranceProcessingItem setOutputStream(Stream outputStream) {
 		if (this.outputStream != null && this.outputStream != outputStream) {
@@ -85,12 +99,22 @@ public abstract class AbstractEntranceProcessingItem implements EntranceProcessi
 		return this;
 	}
 	
+	/**
+	 * Get the output stream of this EntranceProcessingItem.
+	 * @return the output stream
+	 */
 	public Stream getOutputStream() {
 		return this.outputStream;
 	}
 	
 	/*
 	 * Inject event
+	 */
+	/**
+	 * If there are available events, first event in the queue will be
+	 * sent out on the output stream. 
+	 * @return true if there is (at least) one available event and it was sent out
+	 *         false otherwise 
 	 */
 	public boolean injectNextEvent() {
 		if (processor.hasNext()) {
@@ -101,17 +125,31 @@ public abstract class AbstractEntranceProcessingItem implements EntranceProcessi
 		return false;
 	}
 	
+	/**
+	 * Start sending events by calling {@link #injectNextEvent()}. If there are no available events, 
+	 * it will wait by calling {@link #waitForNewEvents()} before attempting to send again.
+	 */
 	public void start() {
 		while (!processor.isFinished()) 
-			if (!this.injectNextEvent())
+			if (!this.injectNextEvent()) {
 				try {
-					Thread.sleep(100);
-				} catch (InterruptedException e) {
+					waitForNewEvents();
+				} catch (Exception e) {
 					e.printStackTrace();
 					break;
 				}
+			}
 		// Inject the last event
 		ContentEvent event = processor.nextEvent();
 		outputStream.put(event);
+	}
+	
+	/**
+	 * Method to wait for an amount of time when there are no available events.
+	 * Implementation of EntranceProcessingItem should override this method to 
+	 * implement non-blocking wait or to adjust the amount of time.
+	 */
+	protected void waitForNewEvents() throws Exception {
+		Thread.sleep(100);
 	}
 }

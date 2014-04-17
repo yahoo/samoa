@@ -23,7 +23,7 @@ package com.yahoo.labs.samoa.topology;
 import com.yahoo.labs.samoa.core.ContentEvent;
 
 public abstract class AbstractStream implements Stream {
-	private String name;
+	private String streamID;
 	private IProcessingItem sourcePi;
  
 	/*
@@ -36,6 +36,10 @@ public abstract class AbstractStream implements Stream {
 		this.sourcePi = sourcePi;
 	}
 	
+	/**
+	 * Get source processing item of this stream
+	 * @return
+	 */
 	public IProcessingItem getSourceProcessingItem() {
 		return this.sourcePi;
 	}
@@ -44,20 +48,31 @@ public abstract class AbstractStream implements Stream {
      * Process event
      */
     @Override
+    /**
+     * Send a ContentEvent
+     * @param event
+     * 			the ContentEvent to be sent
+     */
     public abstract void put(ContentEvent event);
 
     /*
      * Stream name
      */
+    /**
+     * Get name (ID) of this stream
+     * @return the name (ID)
+     */
     @Override
-    public abstract String getStreamId();
-    
-    public void setName(String name) {
-    	this.name = name;
+    public String getStreamId() {
+    	return this.streamID;
     }
     
-    public String getName() {
-    	return this.name;
+    /**
+     * Set the name (ID) of this stream
+     * @param name
+     * 			the name (ID)
+     */
+    public void setStreamId (String streamID) {
+    	this.streamID = streamID;
     }
-
 }

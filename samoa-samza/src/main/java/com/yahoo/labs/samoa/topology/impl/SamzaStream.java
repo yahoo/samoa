@@ -63,7 +63,7 @@ public class SamzaStream extends AbstractStream implements Serializable  {
 		SamzaProcessingNode samzaPi = (SamzaProcessingNode) sourcePi;
 		int index = samzaPi.addOutputStream(this);
 		String streamName = samzaPi.getName()+"-"+Integer.toString(index);
-		this.setName(streamName);
+		this.setStreamId(streamName);
 		// init list of SamzaSystemStream
 		systemStreams = new ArrayList<SamzaSystemStream>();
 	}
@@ -121,11 +121,6 @@ public class SamzaStream extends AbstractStream implements Serializable  {
 		for (SamzaSystemStream stream:systemStreams) {
 			stream.send(collector,event);
 		}
-	}
-
-	@Override
-	public String getStreamId() {
-		return this.getName();
 	}
 	
 	public List<SamzaSystemStream> getSystemStreams() {

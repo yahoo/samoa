@@ -21,71 +21,24 @@ package com.yahoo.labs.samoa.topology.impl;
  */
 
 import com.yahoo.labs.samoa.core.EntranceProcessor;
-import com.yahoo.labs.samoa.topology.EntranceProcessingItem;
-import com.yahoo.labs.samoa.topology.Stream;
+import com.yahoo.labs.samoa.topology.AbstractEntranceProcessingItem;
 
 /**
  * EntranceProcessingItem for multithreaded engine.
  * @author Anh Thu Vu
  *
  */
-public class ThreadsEntranceProcessingItem implements EntranceProcessingItem {
-	
-	private EntranceProcessor processor;
-	private Stream outputStream;
+public class ThreadsEntranceProcessingItem extends AbstractEntranceProcessingItem {
 	
 	public ThreadsEntranceProcessingItem(EntranceProcessor processor) {
-		this.processor = processor;
-	}
-
-	@Override
-	public EntranceProcessor getProcessor() {
-		return processor;
-	}
-
-	@Override
-	public EntranceProcessingItem setOutputStream(Stream stream) {
-		if (this.outputStream != null) {
-			if (this.outputStream == stream) return this;
-			else 
-				throw new IllegalStateException("Output stream for an EntrancePI should be initialized only once");
-		}
-        this.outputStream = stream;
-        return this;
-	}
-	
-	/* 
-	 * Useful for verification.
-	 * Not used right now except for junit test.
-	 */
-	public Stream getOutputStream() {
-		return this.outputStream;
-	}
-	
-	public boolean injectNextEvent() {
-		if (processor.hasNext()) {
-			this.outputStream.put(processor.nextEvent());
-			return true;
-		}
-		return false;
+		super(processor);
 	}
 	
 	public void startSendingEvents() {
-		if (outputStream == null) 
+		if (this.getOutputStream() == null) 
 			throw new IllegalStateException("Try sending events from EntrancePI while outputStream is not set.");
 		
-		while(!processor.isFinished()) {
-			if (!injectNextEvent()) {	
-				try {
-					Thread.sleep(100);
-				} catch (InterruptedException e) {
-					break;
-				}
-			}
-		}
-		
-		// Send last event
-		this.outputStream.put(processor.nextEvent());
+		this.start();
 	}
 
 }

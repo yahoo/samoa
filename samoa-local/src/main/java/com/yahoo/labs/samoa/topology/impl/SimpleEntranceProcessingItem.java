@@ -20,11 +20,8 @@ package com.yahoo.labs.samoa.topology.impl;
  * #L%
  */
 
-import com.yahoo.labs.samoa.core.ContentEvent;
 import com.yahoo.labs.samoa.core.EntranceProcessor;
 import com.yahoo.labs.samoa.topology.AbstractEntranceProcessingItem;
-import com.yahoo.labs.samoa.topology.EntranceProcessingItem;
-import com.yahoo.labs.samoa.topology.Stream;
 
 class SimpleEntranceProcessingItem extends AbstractEntranceProcessingItem {
     public SimpleEntranceProcessingItem(EntranceProcessor processor) {

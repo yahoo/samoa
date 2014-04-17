@@ -42,7 +42,6 @@ import com.yahoo.labs.samoa.topology.Stream;
  */
 class StormEntranceProcessingItem extends AbstractEntranceProcessingItem implements StormTopologyNode {
     private final StormEntranceSpout piSpout;
-    private final String piSpoutUuidStr;
 
     StormEntranceProcessingItem(EntranceProcessor processor) {
         this(processor, UUID.randomUUID().toString());
@@ -50,7 +49,7 @@ class StormEntranceProcessingItem extends AbstractEntranceProcessingItem impleme
 
     StormEntranceProcessingItem(EntranceProcessor processor, String friendlyId) {
     	super(processor);
-        this.piSpoutUuidStr = friendlyId;
+    	this.setName(friendlyId);
         this.piSpout = new StormEntranceSpout(processor);
     }
 
@@ -68,23 +67,23 @@ class StormEntranceProcessingItem extends AbstractEntranceProcessingItem impleme
     
     @Override
     public void addToTopology(StormTopology topology, int parallelismHint) {
-        topology.getStormBuilder().setSpout(piSpoutUuidStr, piSpout, parallelismHint);
+        topology.getStormBuilder().setSpout(this.getName(), piSpout, parallelismHint);
     }
 
     @Override
     public StormStream createStream() {
-        return piSpout.createStream(piSpoutUuidStr);
+        return piSpout.createStream(this.getName());
     }
 
     @Override
     public String getId() {
-        return piSpoutUuidStr;
+        return this.getName();
     }
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder(super.toString());
-        sb.insert(0, String.format("id: %s, ", piSpoutUuidStr));
+        sb.insert(0, String.format("id: %s, ", this.getName()));
         return sb.toString();
     }
 

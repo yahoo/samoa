@@ -36,7 +36,7 @@ public class SimpleTopology extends Topology {
     		throw new IllegalStateException("SimpleTopology supports 1 entrance PI only. Number of entrance PIs is "+this.getEntranceProcessingItems().size());
     	
     	SimpleEntranceProcessingItem entrancePi = (SimpleEntranceProcessingItem) this.getEntranceProcessingItems().toArray()[0];
-    	entrancePi.onCreate(0); // id=0 as it is not used in simple mode
+    	entrancePi.getProcessor().onCreate(0); // id=0 as it is not used in simple mode
         entrancePi.startSendingEvents();
     }
 

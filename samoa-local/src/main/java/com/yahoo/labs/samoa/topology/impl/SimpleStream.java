@@ -51,7 +51,7 @@ class SimpleStream extends AbstractStream {
     	this.maxCounter = 1;
     }
 
-    private synchronized int getNextCounter() {
+    private int getNextCounter() {
     	if (maxCounter > 0 && eventCounter >= maxCounter) eventCounter = 0;
     	this.eventCounter++;
     	return this.eventCounter;
@@ -92,9 +92,4 @@ class SimpleStream extends AbstractStream {
         if (maxCounter <= 0) maxCounter = 1;
         maxCounter *= destination.getParallelism();
     }
-
-	@Override
-	public String getStreamId() {
-		return this.getName();
-	}
 }
