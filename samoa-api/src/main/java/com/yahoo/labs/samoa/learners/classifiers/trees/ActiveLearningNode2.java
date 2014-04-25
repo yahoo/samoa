@@ -30,12 +30,12 @@ import org.slf4j.LoggerFactory;
 
 import com.yahoo.labs.samoa.instances.Instance;
 
-final class ActiveLearningNode extends LearningNode {
+final class ActiveLearningNode2 extends LearningNode {
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -2892102872646338908L;
-	private static final Logger logger = LoggerFactory.getLogger(ActiveLearningNode.class);
+	private static final Logger logger = LoggerFactory.getLogger(ActiveLearningNode2.class);
 	
 	private double weightSeenAtLastSplitEvaluation;
 	
@@ -51,7 +51,7 @@ final class ActiveLearningNode extends LearningNode {
 	
 	private boolean isSplitting;
 	
-	ActiveLearningNode(double[] classObservation, int parallelismHint) {
+	ActiveLearningNode2(double[] classObservation, int parallelismHint) {
 		super(classObservation);
 		this.weightSeenAtLastSplitEvaluation = this.getWeightSeen();
 		this.id = VerticalHoeffdingTree.LearningNodeIdGenerator.generate();
@@ -64,16 +64,6 @@ final class ActiveLearningNode extends LearningNode {
 		return id;
 	}
 
-        protected AttributeBatchContentEvent[] attributeBatchContentEvent;
-
-    public AttributeBatchContentEvent[] getAttributeBatchContentEvent() {
-        return this.attributeBatchContentEvent;
-    }
-
-    public void setAttributeBatchContentEvent(AttributeBatchContentEvent[] attributeBatchContentEvent) {
-        this.attributeBatchContentEvent = attributeBatchContentEvent;
-    }
-        
 	@Override
 	void learnFromInstance(Instance inst, ModelAggregatorProcessor proc) {
 		//TODO: what statistics should we keep for unused instance?
@@ -91,36 +81,22 @@ final class ActiveLearningNode extends LearningNode {
 			int instAttIndex = modelAttIndexToInstanceAttIndex(i, inst);
 			Integer obsIndex = Integer.valueOf(i);
 			String key = attributeContentEventKeys.get(obsIndex);
-
+			
 			if(key == null){
 				key =  this.generateKey(i);
 				attributeContentEventKeys.put(obsIndex, key);
 			}
 			AttributeContentEvent ace = new AttributeContentEvent.Builder(
 					this.id, i, key)
-			.attrValue(inst.value(instAttIndex))
-			.classValue((int) inst.classValue())
-			.weight(inst.weight())
-			.isNominal(inst.attribute(instAttIndex).isNominal())
-			.build();
-			if (this.attributeBatchContentEvent == null){
-				this.attributeBatchContentEvent = new AttributeBatchContentEvent[inst.numAttributes() - 1];
-			}
-			if (this.attributeBatchContentEvent[i] == null){
-				this.attributeBatchContentEvent[i] = new AttributeBatchContentEvent.Builder(
-						this.id, i, key)
-				//.attrValue(inst.value(instAttIndex))
-				//.classValue((int) inst.classValue())
-				//.weight(inst.weight()]
-				.isNominal(inst.attribute(instAttIndex).isNominal())
-				.build();
-			}
-			this.attributeBatchContentEvent[i].add(ace);
-			//proc.sendToAttributeStream(ace);
+					.attrValue(inst.value(instAttIndex))
+					.classValue((int) inst.classValue())
+					.weight(inst.weight())
+					.isNominal(inst.attribute(instAttIndex).isNominal())
+					.build();
+			proc.sendToAttributeStream(ace);
 		}
 	}
 	
-	@Override
 	void learnFromInstance(Instance inst, ModelAggregatorProcessor2 proc) {
 		//TODO: what statistics should we keep for unused instance?
 		if(isSplitting){ //currently throw all instance will splitting
@@ -137,32 +113,19 @@ final class ActiveLearningNode extends LearningNode {
 			int instAttIndex = modelAttIndexToInstanceAttIndex(i, inst);
 			Integer obsIndex = Integer.valueOf(i);
 			String key = attributeContentEventKeys.get(obsIndex);
-
+			
 			if(key == null){
 				key =  this.generateKey(i);
 				attributeContentEventKeys.put(obsIndex, key);
 			}
 			AttributeContentEvent ace = new AttributeContentEvent.Builder(
 					this.id, i, key)
-			.attrValue(inst.value(instAttIndex))
-			.classValue((int) inst.classValue())
-			.weight(inst.weight())
-			.isNominal(inst.attribute(instAttIndex).isNominal())
-			.build();
-			if (this.attributeBatchContentEvent == null){
-				this.attributeBatchContentEvent = new AttributeBatchContentEvent[inst.numAttributes() - 1];
-			}
-			if (this.attributeBatchContentEvent[i] == null){
-				this.attributeBatchContentEvent[i] = new AttributeBatchContentEvent.Builder(
-						this.id, i, key)
-				//.attrValue(inst.value(instAttIndex))
-				//.classValue((int) inst.classValue())
-				//.weight(inst.weight()]
-				.isNominal(inst.attribute(instAttIndex).isNominal())
-				.build();
-			}
-			this.attributeBatchContentEvent[i].add(ace);
-			//proc.sendToAttributeStream(ace);
+					.attrValue(inst.value(instAttIndex))
+					.classValue((int) inst.classValue())
+					.weight(inst.weight())
+					.isNominal(inst.attribute(instAttIndex).isNominal())
+					.build();
+			proc.sendToAttributeStream(ace);
 		}
 	}
 	
@@ -188,7 +151,7 @@ final class ActiveLearningNode extends LearningNode {
 		return this.weightSeenAtLastSplitEvaluation;
 	}
 	
-	void requestDistributedSuggestions(long splitId, ModelAggregatorProcessor modelAggrProc) {
+	void requestDistributedSuggestions(long splitId, ModelAggregatorProcessor2 modelAggrProc) {
 		this.isSplitting = true; 
 		this.suggestionCtr = 0;
 		this.thrownAwayInstance = 0;

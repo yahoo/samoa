@@ -133,6 +133,7 @@ public class PrequentialEvaluation implements Task, Configurable {
         // sourcePiOutputStream = builder.createStream(sourcePi);
 
         sourcePiOutputStream = builder.createStream(preqSource);
+        sourcePiOutputStream.setBatchSize(200);
         // preqStarter.setInputStream(sourcePiOutputStream);
 
         // instantiate classifier and connect it to sourcePiOutputStream

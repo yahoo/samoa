@@ -25,6 +25,7 @@ import com.yahoo.labs.samoa.core.ContentEvent;
 public abstract class AbstractStream implements Stream {
 	private String streamID;
 	private IProcessingItem sourcePi;
+	private int batchSize;
  
 	/*
 	 * Constructor
@@ -34,6 +35,7 @@ public abstract class AbstractStream implements Stream {
 	}
 	public AbstractStream(IProcessingItem sourcePi) {
 		this.sourcePi = sourcePi;
+		this.batchSize = 1;
 	}
 	
 	/**
@@ -74,5 +76,29 @@ public abstract class AbstractStream implements Stream {
      */
     public void setStreamId (String streamID) {
     	this.streamID = streamID;
+    }
+    
+    /*
+     * Batch size
+     */
+    /**
+     * Set suggested batch size
+     * 
+     * @param batchSize
+     * 			the suggested batch size
+     * 
+     */
+    @Override
+    public void setBatchSize(int batchSize) {
+    	this.batchSize = batchSize;
+    }
+    
+    /**
+     * Get suggested batch size
+     * 
+     * @return the suggested batch size
+     */
+    public int getBatchSize() {
+    	return this.batchSize;
     }
 }

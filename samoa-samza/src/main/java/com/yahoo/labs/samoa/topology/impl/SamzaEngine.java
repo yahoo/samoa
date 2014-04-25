@@ -90,6 +90,17 @@ public class SamzaEngine {
 			return;
 		}
 		
+		// Create kafka streams
+		Set<Stream> streams = topo.getStreams(); 
+		for (Stream stream:streams) {
+			SamzaStream samzaStream = (SamzaStream) stream;
+			List<SamzaSystemStream> systemStreams = samzaStream.getSystemStreams();
+			for (SamzaSystemStream systemStream:systemStreams) {
+				// all streams should be kafka streams
+				SystemsUtils.createKafkaTopic(systemStream.getStream(),systemStream.getParallelism());
+			}
+		}
+		
 		// Submit the jobs with those configs
 		for (MapConfig config:configs) {
 			logger.info("Config:{}",config);
@@ -177,18 +188,6 @@ public class SamzaEngine {
 	public static void submitTopology(Topology topo) {
 		// Setup SystemsUtils
 		engine._setupSystemsUtils();
-		
-		// Create kafka streams
-		Set<Stream> streams = topo.getStreams(); 
-		for (Stream stream:streams) {
-			SamzaStream samzaStream = (SamzaStream) stream;
-			List<SamzaSystemStream> systemStreams = samzaStream.getSystemStreams();
-			for (SamzaSystemStream systemStream:systemStreams) {
-				// all streams should be kafka streams
-				SystemsUtils.createKafkaTopic(systemStream.getStream(),systemStream.getParallelism());
-			}
-		}
-		
 		// Submit topology
 		engine._submitTopology(topo);
 	}

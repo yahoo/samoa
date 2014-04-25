@@ -53,6 +53,7 @@ abstract class Node implements java.io.Serializable{
 	 * @return The prediction result in the form of class distribution
 	 */
 	abstract double[] getClassVotes(Instance inst, ModelAggregatorProcessor map);
+	abstract double[] getClassVotes(Instance inst, ModelAggregatorProcessor2 map);
 	
 	/**
 	 * Method to check whether the node is a leaf node or not.

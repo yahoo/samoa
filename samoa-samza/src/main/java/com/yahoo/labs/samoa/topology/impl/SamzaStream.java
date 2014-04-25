@@ -47,10 +47,11 @@ public class SamzaStream extends AbstractStream implements Serializable  {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	private static final String SYSTEM_NAME = "kafka";
+	private static final String DEFAULT_SYSTEM_NAME = "kafka";
 	
 	private List<SamzaSystemStream> systemStreams;
 	private transient MessageCollector collector;
+	private String systemName;
 	
 	// Constructor
 	public SamzaStream() {
@@ -59,6 +60,7 @@ public class SamzaStream extends AbstractStream implements Serializable  {
 	
 	public SamzaStream(IProcessingItem sourcePi) {
 		super(sourcePi);
+		this.systemName = DEFAULT_SYSTEM_NAME;
 		//Get name/id for this stream
 		SamzaProcessingNode samzaPi = (SamzaProcessingNode) sourcePi;
 		int index = samzaPi.addOutputStream(this);
@@ -66,6 +68,20 @@ public class SamzaStream extends AbstractStream implements Serializable  {
 		this.setStreamId(streamName);
 		// init list of SamzaSystemStream
 		systemStreams = new ArrayList<SamzaSystemStream>();
+	}
+	
+	/*
+	 * System name (Kafka)
+	 */
+	public void setSystemName(String systemName) {
+		this.systemName = systemName;
+		for (SamzaSystemStream systemStream:systemStreams) {
+			systemStream.setSystem(systemName);
+		}
+	}
+	
+	public String getSystemName() {
+		return this.systemName;
 	}
 	
 	/*
@@ -89,7 +105,7 @@ public class SamzaStream extends AbstractStream implements Serializable  {
 		// Create a new one 
 		if (resultStream == null) {
 			String topicName = this.getStreamId() + "-" + Integer.toString(systemStreams.size());
-			resultStream = new SamzaSystemStream(SYSTEM_NAME,topicName,scheme,parallelism);
+			resultStream = new SamzaSystemStream(this.systemName,topicName,scheme,parallelism);
 			systemStreams.add(resultStream);
 		}
 		
@@ -160,6 +176,13 @@ public class SamzaStream extends AbstractStream implements Serializable  {
 		
 		public SamzaSystemStream(String system, String stream, PartitioningScheme scheme) {
 			this(system, stream, scheme, 1);
+		}
+		
+		/*
+		 * Setters
+		 */
+		public void setSystem(String system) {
+			this.system = system;
 		}
 		
 		/*

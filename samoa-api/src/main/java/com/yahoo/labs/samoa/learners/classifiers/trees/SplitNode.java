@@ -67,6 +67,11 @@ final class SplitNode extends Node {
 		return this.observedClassDistribution.getArrayCopy();
 	}		
 	
+	@Override
+	double[] getClassVotes(Instance inst, ModelAggregatorProcessor2 vht) {
+		return this.observedClassDistribution.getArrayCopy();
+	}	
+	
 	/**
 	 * Method to return the number of children of this split node
 	 * @return number of children
