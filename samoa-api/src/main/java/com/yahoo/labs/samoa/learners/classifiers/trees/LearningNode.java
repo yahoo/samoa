@@ -41,7 +41,6 @@ abstract class LearningNode extends Node {
 	 * @param proc The model aggregator processor where this learning node exists
 	 */
 	abstract void learnFromInstance(Instance inst, ModelAggregatorProcessor proc);
-	abstract void learnFromInstance(Instance inst, ModelAggregatorProcessor2 proc);
 	
 	@Override
 	protected boolean isLeaf(){

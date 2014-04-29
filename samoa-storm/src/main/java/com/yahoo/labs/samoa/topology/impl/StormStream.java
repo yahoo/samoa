@@ -77,9 +77,4 @@ abstract class StormStream implements Stream, java.io.Serializable {
 			return streamId;
 		}
 	}
-	
-	@Override
-	public void setBatchSize(int batchSize) {
-		// Ignore batch size
-	}
 }

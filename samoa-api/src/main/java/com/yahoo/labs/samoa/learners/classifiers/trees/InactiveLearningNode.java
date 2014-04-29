@@ -47,20 +47,9 @@ final class InactiveLearningNode extends LearningNode {
 		this.observedClassDistribution.addToValue(
 				(int)inst.classValue(), inst.weight());
 	}
-	
-	@Override
-	void learnFromInstance(Instance inst, ModelAggregatorProcessor2 proc) {
-		this.observedClassDistribution.addToValue(
-				(int)inst.classValue(), inst.weight());
-	}
 
 	@Override
 	double[] getClassVotes(Instance inst, ModelAggregatorProcessor map) {
-		return this.observedClassDistribution.getArrayCopy();	
-	}
-	
-	@Override
-	double[] getClassVotes(Instance inst, ModelAggregatorProcessor2 map) {
 		return this.observedClassDistribution.getArrayCopy();	
 	}
 

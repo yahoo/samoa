@@ -91,88 +91,37 @@ final class ActiveLearningNode extends LearningNode {
 			int instAttIndex = modelAttIndexToInstanceAttIndex(i, inst);
 			Integer obsIndex = Integer.valueOf(i);
 			String key = attributeContentEventKeys.get(obsIndex);
-
+			
 			if(key == null){
 				key =  this.generateKey(i);
 				attributeContentEventKeys.put(obsIndex, key);
 			}
 			AttributeContentEvent ace = new AttributeContentEvent.Builder(
 					this.id, i, key)
-			.attrValue(inst.value(instAttIndex))
-			.classValue((int) inst.classValue())
-			.weight(inst.weight())
-			.isNominal(inst.attribute(instAttIndex).isNominal())
-			.build();
-			if (this.attributeBatchContentEvent == null){
-				this.attributeBatchContentEvent = new AttributeBatchContentEvent[inst.numAttributes() - 1];
-			}
-			if (this.attributeBatchContentEvent[i] == null){
-				this.attributeBatchContentEvent[i] = new AttributeBatchContentEvent.Builder(
-						this.id, i, key)
-				//.attrValue(inst.value(instAttIndex))
-				//.classValue((int) inst.classValue())
-				//.weight(inst.weight()]
-				.isNominal(inst.attribute(instAttIndex).isNominal())
-				.build();
-			}
-			this.attributeBatchContentEvent[i].add(ace);
-			//proc.sendToAttributeStream(ace);
+					.attrValue(inst.value(instAttIndex))
+					.classValue((int) inst.classValue())
+					.weight(inst.weight())
+					.isNominal(inst.attribute(instAttIndex).isNominal())
+					.build();
+                        if (this.attributeBatchContentEvent == null){
+                            this.attributeBatchContentEvent = new AttributeBatchContentEvent[inst.numAttributes() - 1];
 		}
+                        if (this.attributeBatchContentEvent[i] == null){
+                            this.attributeBatchContentEvent[i] = new AttributeBatchContentEvent.Builder(
+					this.id, i, key)
+					//.attrValue(inst.value(instAttIndex))
+					//.classValue((int) inst.classValue())
+					//.weight(inst.weight()]
+					.isNominal(inst.attribute(instAttIndex).isNominal())
+					.build();
 	}
-	
-	@Override
-	void learnFromInstance(Instance inst, ModelAggregatorProcessor2 proc) {
-		//TODO: what statistics should we keep for unused instance?
-		if(isSplitting){ //currently throw all instance will splitting
-			this.thrownAwayInstance++;
-			return;
-		}
-		this.observedClassDistribution.addToValue((int)inst.classValue(), 
-				inst.weight());
-		//done: parallelize by sending attributes one by one
-		//TODO: meanwhile, we can try to use the ThreadPool to execute it separately
-		//TODO: parallelize by sending in batch, i.e. split the attributes into
-		//chunk instead of send the attribute one by one
-		for(int i = 0; i < inst.numAttributes() - 1; i++){
-			int instAttIndex = modelAttIndexToInstanceAttIndex(i, inst);
-			Integer obsIndex = Integer.valueOf(i);
-			String key = attributeContentEventKeys.get(obsIndex);
-
-			if(key == null){
-				key =  this.generateKey(i);
-				attributeContentEventKeys.put(obsIndex, key);
-			}
-			AttributeContentEvent ace = new AttributeContentEvent.Builder(
-					this.id, i, key)
-			.attrValue(inst.value(instAttIndex))
-			.classValue((int) inst.classValue())
-			.weight(inst.weight())
-			.isNominal(inst.attribute(instAttIndex).isNominal())
-			.build();
-			if (this.attributeBatchContentEvent == null){
-				this.attributeBatchContentEvent = new AttributeBatchContentEvent[inst.numAttributes() - 1];
-			}
-			if (this.attributeBatchContentEvent[i] == null){
-				this.attributeBatchContentEvent[i] = new AttributeBatchContentEvent.Builder(
-						this.id, i, key)
-				//.attrValue(inst.value(instAttIndex))
-				//.classValue((int) inst.classValue())
-				//.weight(inst.weight()]
-				.isNominal(inst.attribute(instAttIndex).isNominal())
-				.build();
-			}
-			this.attributeBatchContentEvent[i].add(ace);
+                        this.attributeBatchContentEvent[i].add(ace);
 			//proc.sendToAttributeStream(ace);
 		}
 	}
 	
 	@Override
 	double[] getClassVotes(Instance inst, ModelAggregatorProcessor map) {
-		return this.observedClassDistribution.getArrayCopy();
-	}
-	
-	@Override
-	double[] getClassVotes(Instance inst, ModelAggregatorProcessor2 map) {
 		return this.observedClassDistribution.getArrayCopy();
 	}
 	

@@ -65,7 +65,7 @@ import java.util.Set;
  * @author Arinto Murdopo
  *
  */
-class ModelAggregatorProcessor implements Processor {
+final class ModelAggregatorProcessor implements Processor {
 
 	private static final long serialVersionUID = -1685875718300564886L;
 	private static final Logger logger = LoggerFactory.getLogger(ModelAggregatorProcessor.class);
