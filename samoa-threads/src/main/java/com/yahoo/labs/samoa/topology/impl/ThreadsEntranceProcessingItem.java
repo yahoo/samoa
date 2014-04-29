@@ -21,24 +21,20 @@ package com.yahoo.labs.samoa.topology.impl;
  */
 
 import com.yahoo.labs.samoa.core.EntranceProcessor;
-import com.yahoo.labs.samoa.topology.AbstractEntranceProcessingItem;
+import com.yahoo.labs.samoa.topology.LocalEntranceProcessingItem;
 
 /**
  * EntranceProcessingItem for multithreaded engine.
  * @author Anh Thu Vu
  *
  */
-public class ThreadsEntranceProcessingItem extends AbstractEntranceProcessingItem {
+public class ThreadsEntranceProcessingItem extends LocalEntranceProcessingItem {
 	
 	public ThreadsEntranceProcessingItem(EntranceProcessor processor) {
 		super(processor);
 	}
 	
-	public void startSendingEvents() {
-		if (this.getOutputStream() == null) 
-			throw new IllegalStateException("Try sending events from EntrancePI while outputStream is not set.");
-		
-		this.start();
-	}
+	// The default waiting time when there is no available events is 100ms
+    // Override waitForNewEvents() to change it
 
 }
