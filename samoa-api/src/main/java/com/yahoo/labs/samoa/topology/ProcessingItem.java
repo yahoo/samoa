@@ -66,5 +66,5 @@ public interface ProcessingItem extends IProcessingItem {
 	 * 
 	 * @return int
 	 */
-	public int getParalellism();
+	public int getParallelism();
 }
