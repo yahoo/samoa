@@ -85,8 +85,23 @@ public class LocalDoTask {
             System.out.println("Fail to initialize the task" + e);
             return;
         }
-        task.setFactory(new SimpleComponentFactory());
-        task.init();
-        SimpleEngine.submitTopology(task.getTopology());
+        
+        // depend on the user-specified numThreads
+        // we either call Simple-package or Parallel-package
+        // This is because I need to compare the 2 packages
+        if (numThreads >= 1) {
+        	logger.info("Will be running with multithreading");
+        	task.setFactory(new ParallelComponentFactory());
+            task.init();
+            ParallelEngine.setNumberOfThreadsAndQueueLimit(numThreads, queueLimit);
+            ParallelEngine.submitTopology(task.getTopology());
+        }
+        else {
+        	logger.info("Will be running with the Simple-package");
+        	task.setFactory(new SimpleComponentFactory());
+            task.init();
+            SimpleEngine.submitTopology(task.getTopology());
+        }
+        
     }
 }

@@ -188,6 +188,15 @@ public final class PrequentialSourceProcessor implements EntranceProcessor {
         this.streamSource = new StreamSource(stream);
         firstInstance = streamSource.nextInstance().getData();
     }
+    
+    public void notifyQueueIsFull() {
+    	lock.lock();
+    	try {
+    		isPaused = true;
+    	} finally {
+    		lock.unlock();
+    	}
+    }
 
     public void setMaxNumInstances(int value) {
         numberInstances = value;
