@@ -40,7 +40,7 @@ import com.yahoo.labs.samoa.moa.streams.generators.RandomTreeGenerator;
 import com.yahoo.labs.samoa.streams.PrequentialSourceProcessor;
 import com.yahoo.labs.samoa.topology.ComponentFactory;
 import com.yahoo.labs.samoa.topology.Stream;
-import com.yahoo.labs.samoa.topology.Topology;
+import com.yahoo.labs.samoa.topology.AbstractTopology;
 import com.yahoo.labs.samoa.topology.TopologyBuilder;
 
 /**
@@ -97,7 +97,7 @@ public class PrequentialEvaluation implements Task, Configurable {
 
     private Stream evaluatorPiInputStream;
 
-    private Topology prequentialTopology;
+    private AbstractTopology prequentialTopology;
 
     private TopologyBuilder builder;
 
@@ -169,7 +169,7 @@ public class PrequentialEvaluation implements Task, Configurable {
 
     }
 
-    public Topology getTopology() {
+    public AbstractTopology getTopology() {
         return prequentialTopology;
     }
     //

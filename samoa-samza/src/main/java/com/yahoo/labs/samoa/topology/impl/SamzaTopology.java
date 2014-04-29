@@ -24,14 +24,14 @@ import java.util.HashSet;
 import java.util.Set;
 
 import com.yahoo.labs.samoa.topology.IProcessingItem;
-import com.yahoo.labs.samoa.topology.Topology;
+import com.yahoo.labs.samoa.topology.AbstractTopology;
 
 /**
  * Topology for Samza
  * 
  * @author Anh Thu Vu
  */
-public class SamzaTopology extends Topology {
+public class SamzaTopology extends AbstractTopology {
 	private int procItemCounter;
 	
 	public SamzaTopology(String topoName) {

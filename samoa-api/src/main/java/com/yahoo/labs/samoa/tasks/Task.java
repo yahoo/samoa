@@ -22,7 +22,7 @@ package com.yahoo.labs.samoa.tasks;
 
 import com.yahoo.labs.samoa.core.TopologyStarter;
 import com.yahoo.labs.samoa.topology.ComponentFactory;
-import com.yahoo.labs.samoa.topology.Topology;
+import com.yahoo.labs.samoa.topology.AbstractTopology;
 
 /**
  * Task interface, the mother of all SAMOA tasks!
@@ -40,7 +40,7 @@ public interface Task {
 	 * Return the final topology object to be executed in the cluster
 	 * @return topology object to be submitted to be executed in the cluster
 	 */
-	public Topology getTopology();
+	public AbstractTopology getTopology();
 	
     // /**
     // * Return the entrance processor to start SAMOA topology

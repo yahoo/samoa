@@ -22,14 +22,14 @@ package com.yahoo.labs.samoa.topology.impl;
 
 import com.yahoo.labs.samoa.topology.EntranceProcessingItem;
 import com.yahoo.labs.samoa.topology.IProcessingItem;
-import com.yahoo.labs.samoa.topology.Topology;
+import com.yahoo.labs.samoa.topology.AbstractTopology;
 
 /**
  * Topology for multithreaded engine.
  * @author Anh Thu Vu
  *
  */
-public class ThreadsTopology extends Topology {
+public class ThreadsTopology extends AbstractTopology {
 	/*
 	 * TODO: support multiple entrance PIs
 	 */

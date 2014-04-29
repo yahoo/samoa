@@ -20,102 +20,21 @@ package com.yahoo.labs.samoa.topology;
  * #L%
  */
 
-import java.util.HashSet;
-import java.util.Set;
 
-/**
- * Topology abstract class.
- * 
- */
-public abstract class Topology {
+public interface Topology {
 
-	private String topoName;
-    private Set<Stream> streams;
-    private Set<IProcessingItem> processingItems;
-    private Set<EntranceProcessingItem> entranceProcessingItems;
+	public String getTopologyName();
 
-    protected Topology(String name) {
-    	this.topoName = name;
-    	this.streams = new HashSet<Stream>();
-        this.processingItems = new HashSet<IProcessingItem>();
-        this.entranceProcessingItems = new HashSet<EntranceProcessingItem>();
-    }
-    
-    /**
-     * Gets the name of this topology
-     * 
-     * @return name of the topology
-     */
-    public String getTopologyName() {
-    	return this.topoName;
-    }
-    
-    /**
-     * Adds an Entrance processing item to the topology.
-     * 
-     * @param epi
-     * 			Entrance processing item
-     */
-    protected void addEntranceProcessingItem(EntranceProcessingItem epi) {
-    	this.entranceProcessingItems.add(epi);
-    	this.addProcessingItem(epi);
-    }
-    
-    /**
-     * Gets entrance processing items in the topology
-     * 
-     * @return the set of processing items
-     */
-    public Set<EntranceProcessingItem> getEntranceProcessingItems() {
-    	return this.entranceProcessingItems;
-    }
+	public void setTopologyName(String topologyName) ;
 
-    /**
-     * Add processing item to topology.
-     * 
-     * @param procItem
-     *            Processing item.
-     */
-    protected void addProcessingItem(IProcessingItem procItem) {
-        addProcessingItem(procItem, 1);
-    }
+	public String getAppURI();
 
-    /**
-     * Add processing item to topology.
-     * 
-     * @param procItem
-     *            Processing item.
-     * @param parallelismHint
-     *            Processing item parallelism level.
-     */
-    protected void addProcessingItem(IProcessingItem procItem, int parallelismHint) {
-        this.processingItems.add(procItem);
-    }
-    
-    /**
-     * Gets processing items in the topology (including entrance processing items)
-     * 
-     * @return the set of processing items
-     */
-    public Set<IProcessingItem> getProcessingItems() {
-    	return this.processingItems;
-    }
+	public void setAppURI(String appURI);
 
-    /**
-     * Add stream to topology.
-     * 
-     * @param stream
-     */
-    protected void addStream(Stream stream) {
-        this.streams.add(stream);
-    }
-    
-    /**
-     * Gets streams in the topology
-     * 
-     * @return the set of streams
-     */
-    public Set<Stream> getStreams() {
-    	return this.streams;
-    } 
+	void addProcessingItem(IProcessingItem procItem);
+
+	void addStream(Stream stream);
+	
+	public void topologyInit();
+	
 }

@@ -25,11 +25,11 @@ package com.yahoo.labs.samoa.topology.impl;
  */
 
 import com.yahoo.labs.samoa.topology.EntranceProcessingItem;
-import com.yahoo.labs.samoa.topology.Topology;
+import com.yahoo.labs.samoa.topology.AbstractTopology;
 
 public class SimpleEngine {
 
-    public static void submitTopology(Topology topology) {
+    public static void submitTopology(AbstractTopology topology) {
         SimpleTopology simpleTopology = (SimpleTopology) topology;
         simpleTopology.run();
         Runtime.getRuntime().exit(0); // terminates execution and all launched threads

@@ -23,9 +23,9 @@ package com.yahoo.labs.samoa.topology.impl;
 import com.yahoo.labs.samoa.topology.EntranceProcessingItem;
 import com.yahoo.labs.samoa.topology.IProcessingItem;
 import com.yahoo.labs.samoa.topology.Stream;
-import com.yahoo.labs.samoa.topology.Topology;
+import com.yahoo.labs.samoa.topology.AbstractTopology;
 
-public class S4Topology extends Topology {
+public class S4Topology extends AbstractTopology {
 
     // private static Logger logger = LoggerFactory.getLogger(S4Topology.class);
     private String _evaluationTask;

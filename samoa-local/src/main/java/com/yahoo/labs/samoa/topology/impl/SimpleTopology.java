@@ -25,9 +25,9 @@ package com.yahoo.labs.samoa.topology.impl;
  */
 
 import com.yahoo.labs.samoa.topology.EntranceProcessingItem;
-import com.yahoo.labs.samoa.topology.Topology;
+import com.yahoo.labs.samoa.topology.AbstractTopology;
 
-public class SimpleTopology extends Topology {
+public class SimpleTopology extends AbstractTopology {
 
     public void run() {
     	if (this.getEntranceProcessingItems() == null)

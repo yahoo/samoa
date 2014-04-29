@@ -27,7 +27,7 @@ import com.yahoo.labs.samoa.topology.EntranceProcessingItem;
 import com.yahoo.labs.samoa.topology.IProcessingItem;
 import com.yahoo.labs.samoa.topology.ProcessingItem;
 import com.yahoo.labs.samoa.topology.Stream;
-import com.yahoo.labs.samoa.topology.Topology;
+import com.yahoo.labs.samoa.topology.AbstractTopology;
 
 /**
  * ComponentFactory for multithreaded engine
@@ -57,7 +57,7 @@ public class ThreadsComponentFactory implements ComponentFactory {
 	}
 
 	@Override
-	public Topology createTopology(String topoName) {
+	public AbstractTopology createTopology(String topoName) {
 		return new ThreadsTopology(topoName);
 	}
 

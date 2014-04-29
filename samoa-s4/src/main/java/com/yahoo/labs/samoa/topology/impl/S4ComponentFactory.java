@@ -33,7 +33,7 @@ import com.yahoo.labs.samoa.topology.EntranceProcessingItem;
 import com.yahoo.labs.samoa.topology.IProcessingItem;
 import com.yahoo.labs.samoa.topology.ProcessingItem;
 import com.yahoo.labs.samoa.topology.Stream;
-import com.yahoo.labs.samoa.topology.Topology;
+import com.yahoo.labs.samoa.topology.AbstractTopology;
 
 /**
  * S4 Platform Component Factory
@@ -76,7 +76,7 @@ public class S4ComponentFactory implements ComponentFactory {
     }
 
     @Override
-    public Topology createTopology(String topoName) {
+    public AbstractTopology createTopology(String topoName) {
         return new S4Topology(topoName);
     }
 
