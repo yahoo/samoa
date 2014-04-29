@@ -38,7 +38,7 @@ public class TopologyBuilder {
     // -ve -> fat class where it has capabilities to instantiate specific component and connecting them
     // +ve -> easy abstraction for SAMOA developer "you just implement your builder logic here!"
     private ComponentFactory componentFactory;
-    private AbstractTopology topology;
+    private Topology topology;
     private Map<Processor, IProcessingItem> mapProcessorToProcessingItem;
 
     // TODO: refactor, temporary constructor used by Storm code
@@ -133,7 +133,7 @@ public class TopologyBuilder {
      * 
      * @return
      */
-    public AbstractTopology build() {
+    public Topology build() {
         return topology;
     }
 

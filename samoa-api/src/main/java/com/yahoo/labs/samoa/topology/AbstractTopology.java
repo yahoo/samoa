@@ -26,8 +26,10 @@ import java.util.Set;
 /**
  * Topology abstract class.
  * 
+ * It manages basic information of a topology: name, sets of Streams and ProcessingItems
+ * 
  */
-public abstract class AbstractTopology {
+public abstract class AbstractTopology implements Topology {
 
 	private String topoName;
     private Set<Stream> streams;
@@ -51,12 +53,22 @@ public abstract class AbstractTopology {
     }
     
     /**
+     * Sets the name of this topology
+     * 
+     * @param topologyName
+     * 			name of the topology
+     */
+    public void setTopologyName(String topologyName) {
+    	this.topoName = topologyName;
+    }
+    
+    /**
      * Adds an Entrance processing item to the topology.
      * 
      * @param epi
      * 			Entrance processing item
      */
-    protected void addEntranceProcessingItem(EntranceProcessingItem epi) {
+    public void addEntranceProcessingItem(EntranceProcessingItem epi) {
     	this.entranceProcessingItems.add(epi);
     	this.addProcessingItem(epi);
     }
@@ -76,7 +88,7 @@ public abstract class AbstractTopology {
      * @param procItem
      *            Processing item.
      */
-    protected void addProcessingItem(IProcessingItem procItem) {
+    public void addProcessingItem(IProcessingItem procItem) {
         addProcessingItem(procItem, 1);
     }
 
@@ -88,7 +100,7 @@ public abstract class AbstractTopology {
      * @param parallelismHint
      *            Processing item parallelism level.
      */
-    protected void addProcessingItem(IProcessingItem procItem, int parallelismHint) {
+    public void addProcessingItem(IProcessingItem procItem, int parallelismHint) {
         this.processingItems.add(procItem);
     }
     
@@ -106,7 +118,7 @@ public abstract class AbstractTopology {
      * 
      * @param stream
      */
-    protected void addStream(Stream stream) {
+    public void addStream(Stream stream) {
         this.streams.add(stream);
     }
     

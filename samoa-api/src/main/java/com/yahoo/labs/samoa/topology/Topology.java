@@ -23,18 +23,65 @@ package com.yahoo.labs.samoa.topology;
 
 public interface Topology {
 
+	/*
+	 * Name
+	 */
+	/**
+     * Get the topology's name
+     * 
+     * @return the name of the topology
+     */
 	public String getTopologyName();
 
+	/**
+	 * Set the topology's name
+	 * 
+	 * @param topologyName
+	 * 			the name of the topology
+	 */
 	public void setTopologyName(String topologyName) ;
 
-	public String getAppURI();
-
-	public void setAppURI(String appURI);
-
+	/*
+	 * Entrance Processing Items
+	 */
+	/**
+	 * Add an EntranceProcessingItem to this topologyç
+	 * 
+	 * @param epi
+	 * 			the EntranceProcessingItem to be added
+	 */
+	void addEntranceProcessingItem(EntranceProcessingItem epi);
+	
+	
+	/*
+	 * Processing Items
+	 */
+	/**
+	 * Add a ProcessingItem to this topology
+	 * with default parallelism level (i.e. 1)
+	 * 
+	 * @param procItem
+	 * 			the ProcessingItem to be added
+	 */
 	void addProcessingItem(IProcessingItem procItem);
-
+	
+	/**
+	 * Add a ProcessingItem to this topology 
+	 * with an associated parallelism level
+	 * 
+	 * @param procItem
+	 * 			the ProcessingItem to be added
+	 * @param parallelismHint
+	 * 			the parallelism level 
+	 */
+	void addProcessingItem(IProcessingItem procItem, int parallelismHint);
+	
+	/*
+	 * Streams
+	 */
+	/**
+	 * 
+	 * @param stream
+	 */
 	void addStream(Stream stream);
-	
-	public void topologyInit();
-	
 }

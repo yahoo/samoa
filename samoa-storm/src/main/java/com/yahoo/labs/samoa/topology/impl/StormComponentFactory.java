@@ -30,7 +30,7 @@ import com.yahoo.labs.samoa.topology.EntranceProcessingItem;
 import com.yahoo.labs.samoa.topology.IProcessingItem;
 import com.yahoo.labs.samoa.topology.ProcessingItem;
 import com.yahoo.labs.samoa.topology.Stream;
-import com.yahoo.labs.samoa.topology.AbstractTopology;
+import com.yahoo.labs.samoa.topology.Topology;
 
 /**
  * Component factory implementation for samoa-storm
@@ -60,7 +60,7 @@ public final class StormComponentFactory implements ComponentFactory {
     }
 
     @Override
-    public AbstractTopology createTopology(String topoName) {
+    public Topology createTopology(String topoName) {
         StormTopology topology = new StormTopology(topoName);
         return topology;
     }

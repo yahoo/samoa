@@ -33,7 +33,7 @@ import com.yahoo.labs.samoa.core.Processor;
 import com.yahoo.labs.samoa.topology.EntranceProcessingItem;
 import com.yahoo.labs.samoa.topology.ProcessingItem;
 import com.yahoo.labs.samoa.topology.Stream;
-import com.yahoo.labs.samoa.topology.AbstractTopology;
+import com.yahoo.labs.samoa.topology.Topology;
 
 /**
  * @author Anh Thu Vu
@@ -98,7 +98,7 @@ public class ThreadsComponentFactoryTest {
 	
 	@Test
 	public void testCreateTopology() {
-		AbstractTopology topology = factory.createTopology(topoName);
+		Topology topology = factory.createTopology(topoName);
 		assertNotNull("Topology created is null.",topology);
 		assertEquals("Topology created is not a ThreadsTopology.",ThreadsTopology.class,topology.getClass());
 	}

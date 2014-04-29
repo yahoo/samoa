@@ -40,7 +40,7 @@ public class StormTopology extends AbstractTopology {
 	}
 	
 	@Override
-	protected void addProcessingItem(IProcessingItem procItem, int parallelismHint){
+	public void addProcessingItem(IProcessingItem procItem, int parallelismHint){
 		StormTopologyNode stormNode = (StormTopologyNode) procItem;
 		stormNode.addToTopology(this, parallelismHint);
 		super.addProcessingItem(procItem, parallelismHint);

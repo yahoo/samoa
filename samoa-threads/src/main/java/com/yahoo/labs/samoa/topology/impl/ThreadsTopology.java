@@ -30,6 +30,14 @@ import com.yahoo.labs.samoa.topology.AbstractTopology;
  *
  */
 public class ThreadsTopology extends AbstractTopology {
+	
+	/*
+	 * Constructor
+	 */
+	public ThreadsTopology(String topoName) {
+    	super(topoName);
+    }
+	
 	/*
 	 * TODO: support multiple entrance PIs
 	 */
@@ -43,20 +51,11 @@ public class ThreadsTopology extends AbstractTopology {
     	entrancePi.startSendingEvents();
     }
     
-    public ThreadsTopology(String topoName) {
-    	super(topoName);
-    }
-
     protected EntranceProcessingItem getEntranceProcessingItem() {
     	if (this.getEntranceProcessingItems() == null || this.getEntranceProcessingItems().size() < 1)
     		return null;
     	
     	return (EntranceProcessingItem) this.getEntranceProcessingItems().toArray()[0];
-    }
-
-    @Override
-    protected void addEntranceProcessingItem(EntranceProcessingItem epi) {
-        super.addEntranceProcessingItem(epi);
     }
     
     /* 

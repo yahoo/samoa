@@ -20,7 +20,7 @@ package com.yahoo.labs.samoa.topology.impl;
  * #L%
  */
 
-import com.yahoo.labs.samoa.topology.AbstractTopology;
+import com.yahoo.labs.samoa.topology.Topology;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -68,12 +68,12 @@ public class ThreadsEngine {
 	/*
 	 * Submit topology and start
 	 */
-	private static void submitTopology(AbstractTopology topology) {
+	private static void submitTopology(Topology topology) {
 		ThreadsTopology tTopology = (ThreadsTopology) topology;
 		tTopology.run();
 	}
 	
-	public static void submitTopology(AbstractTopology topology, int numThreads) {
+	public static void submitTopology(Topology topology, int numThreads) {
 		ThreadsEngine.setNumberOfThreads(numThreads);
 		ThreadsEngine.submitTopology(topology);
 	}

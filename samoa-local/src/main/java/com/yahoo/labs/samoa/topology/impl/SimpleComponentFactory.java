@@ -27,7 +27,7 @@ import com.yahoo.labs.samoa.topology.EntranceProcessingItem;
 import com.yahoo.labs.samoa.topology.IProcessingItem;
 import com.yahoo.labs.samoa.topology.ProcessingItem;
 import com.yahoo.labs.samoa.topology.Stream;
-import com.yahoo.labs.samoa.topology.AbstractTopology;
+import com.yahoo.labs.samoa.topology.Topology;
 
 public class SimpleComponentFactory implements ComponentFactory {
 
@@ -48,7 +48,7 @@ public class SimpleComponentFactory implements ComponentFactory {
         return stream;
     }
 
-    public AbstractTopology createTopology(String topoName) {
+    public Topology createTopology(String topoName) {
         return new SimpleTopology(topoName);
     }
 }

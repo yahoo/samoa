@@ -56,7 +56,7 @@ public class ThreadsStream extends AbstractStream {
 		return this.destinations;
 	}
 
-	private synchronized int getNextCounter() {
+	private int getNextCounter() {
 	 	if (maxCounter > 0 && eventCounter >= maxCounter) eventCounter = 0;
 	 	this.eventCounter++;
 	  	return this.eventCounter;
@@ -67,7 +67,7 @@ public class ThreadsStream extends AbstractStream {
 		this.put(event, this.getNextCounter());
 	}
 	
-	private synchronized void put(ContentEvent event, int counter) {
+	private void put(ContentEvent event, int counter) {
         ThreadsProcessingItem pi;
         for (StreamDestination destination:destinations) {
             pi = (ThreadsProcessingItem) destination.getProcessingItem();
@@ -87,11 +87,6 @@ public class ThreadsStream extends AbstractStream {
                 break;
             }
         }
-	}
-
-	@Override
-	public String getStreamId() {
-		return this.getName();
 	}
 	
 	private static int getPIIndexForKey(String key, int parallelism) {

@@ -38,7 +38,7 @@ import com.yahoo.labs.samoa.topology.ComponentFactory;
 import com.yahoo.labs.samoa.topology.EntranceProcessingItem;
 import com.yahoo.labs.samoa.topology.ProcessingItem;
 import com.yahoo.labs.samoa.topology.Stream;
-import com.yahoo.labs.samoa.topology.AbstractTopology;
+import com.yahoo.labs.samoa.topology.Topology;
 import com.yahoo.labs.samoa.topology.TopologyBuilder;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -104,7 +104,7 @@ public class ClusteringEvaluation implements Task, Configurable {
 
     private Stream evaluatorPiInputStream;
 
-    private AbstractTopology topology;
+    private Topology topology;
 
     private TopologyBuilder builder;
 
@@ -183,7 +183,7 @@ public class ClusteringEvaluation implements Task, Configurable {
 
     }
 
-    public AbstractTopology getTopology() {
+    public Topology getTopology() {
         return topology;
     }
 

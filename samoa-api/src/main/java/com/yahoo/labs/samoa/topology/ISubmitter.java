@@ -1,8 +1,4 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-package com.yahoo.labs.samoa.topology.impl;
+package com.yahoo.labs.samoa.topology;
 
 /*
  * #%L
@@ -24,15 +20,27 @@ package com.yahoo.labs.samoa.topology.impl;
  * #L%
  */
 
-import com.yahoo.labs.samoa.topology.EntranceProcessingItem;
-import com.yahoo.labs.samoa.topology.Topology;
+import com.yahoo.labs.samoa.tasks.Task;
 
-public class SimpleEngine {
+/**
+ * Submitter interface for programatically deploying platform specific topologies.
+ * 
+ * @author severien
+ *
+ */
+public interface ISubmitter {
 
-    public static void submitTopology(Topology topology) {
-        SimpleTopology simpleTopology = (SimpleTopology) topology;
-        simpleTopology.run();
-        Runtime.getRuntime().exit(0); // terminates execution and all launched threads
-    }
-
+	/**
+	 * Deploy a specific task to a platform.
+	 * 
+	 * @param task
+	 */
+	public void deployTask(Task task);
+	
+	/**
+	 * Sets if the task should run locally or distributed.
+	 * 
+	 * @param bool
+	 */
+	public void setLocal(boolean bool);
 }

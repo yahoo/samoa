@@ -74,5 +74,5 @@ public interface ComponentFactory {
      *            Topology name.
      * @return Topology
      */
-    public AbstractTopology createTopology(String topoName);
+    public Topology createTopology(String topoName);
 }

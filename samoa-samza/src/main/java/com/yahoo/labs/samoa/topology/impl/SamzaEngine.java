@@ -29,7 +29,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.yahoo.labs.samoa.topology.Stream;
-import com.yahoo.labs.samoa.topology.AbstractTopology;
 import com.yahoo.labs.samoa.topology.impl.SamzaStream.SamzaSystemStream;
 import com.yahoo.labs.samoa.utils.SamzaConfigFactory;
 import com.yahoo.labs.samoa.utils.SystemsUtils;
@@ -64,9 +63,7 @@ public class SamzaEngine {
 	private int containerMem;
 	private int piPerContainerRatio;
 	
-	private void _submitTopology(AbstractTopology topo) {
-		SamzaTopology topology = (SamzaTopology) topo;
-		
+	private void _submitTopology(SamzaTopology topology) {
 		// Setup SamzaConfigFactory
 		SamzaConfigFactory configFactory = new SamzaConfigFactory();
 		configFactory.setLocalMode(isLocalMode)
@@ -174,7 +171,7 @@ public class SamzaEngine {
 	 * @param topo
 	 *            the submitted topology
 	 */
-	public static void submitTopology(AbstractTopology topo) {
+	public static void submitTopology(SamzaTopology topo) {
 		// Setup SystemsUtils
 		engine._setupSystemsUtils();
 		
