@@ -203,7 +203,8 @@ elif [ $PLATFORM = 'STORM' ]; then
 	$STORM_EXEC jar $DEPLOYABLE com.yahoo.labs.samoa.topology.impl.StormDoTask $COMPLETE_ARG $NUM_WORKER $MODE_ARG
 
 elif [ $PLATFORM = 'SAMZA' ]; then
-	echo "Deploying to SAMZA"
+	echo "NOT IMPLEMENTED"
+        exit
 
 	SAMOA_SAMZA_PROPERTIES=samoa-samza.properties
 	MODE_OPTION='samoa.samza.mode'
