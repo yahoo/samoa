@@ -85,8 +85,10 @@ public class LocalDoTask {
             System.out.println("Fail to initialize the task" + e);
             return;
         }
+        
         task.setFactory(new SimpleComponentFactory());
         task.init();
         SimpleEngine.submitTopology(task.getTopology());
+        
     }
 }
