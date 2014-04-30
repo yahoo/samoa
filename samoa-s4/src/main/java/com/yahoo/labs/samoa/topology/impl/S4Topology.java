@@ -21,69 +21,29 @@ package com.yahoo.labs.samoa.topology.impl;
  */
 
 import com.yahoo.labs.samoa.topology.EntranceProcessingItem;
-import com.yahoo.labs.samoa.topology.IProcessingItem;
-import com.yahoo.labs.samoa.topology.Stream;
-import com.yahoo.labs.samoa.topology.Topology;
+import com.yahoo.labs.samoa.topology.AbstractTopology;
 
-public class S4Topology extends Topology {
+public class S4Topology extends AbstractTopology {
 
-    // private static Logger logger = LoggerFactory.getLogger(S4Topology.class);
-    private String _evaluationTask;
-    private String _topologyName;
-    private S4EntranceProcessingItem entrancePi;
-
-    S4Topology(String topoName, String evalTask) {
-        super();
-        _topologyName = topoName;
-        _evaluationTask = evalTask;
-        // TODO include app
-    }
+    private String _evaluationTask; // Casey: not sure what this is for
 
     S4Topology(String topoName) {
         this(topoName, null);
     }
 
-    @Override
-    public void setEvaluationTask(String evalTask) {
-        _evaluationTask = evalTask;
-    }
+	S4Topology(String topoName, String evalTask) {
+		super(topoName);
+		_evaluationTask = evalTask; 
+		// TODO include app
+	}
 
-    @Override
-    public String getEvaluationTask() {
-        return _evaluationTask;
-    }
-
-    public String getTopologyName() {
-        return _topologyName;
-    }
-
-    @Override
-    protected void addProcessingItem(IProcessingItem procItem) {
-        // TODO add here the paralelism
-        // the parallelism will be implemented by seting the amount of
-        // processing items to be instantiated
-        // If it is one use a singleton an instantiate in one of the partitions
-        //
-        super.addProcessingItem(procItem);
-        // for (int i = 1; i < procItem.getParalellism(); i++) {
-        // super.addProcessingItem(procItem.copy());
-        // logger.debug("ADDED COPY {}", i);
-        // }
-
-    }
-
-    @Override
-    protected void addStream(Stream stream) {
-        this.streams.add(stream);
-    }
-
-    @Override
-    public void addEntrancePi(EntranceProcessingItem epi) {
-        this.entrancePi = (S4EntranceProcessingItem) epi;
-        super.addEntrancePi(epi);
-    }
-
-    public EntranceProcessingItem getEntranceProcessingItem() {
-        return entrancePi;
+	/*
+	 * TODO: support multiple EntranceProcessingItems
+	 */
+    protected EntranceProcessingItem getEntranceProcessingItem() {
+    	if (this.getEntranceProcessingItems() == null) return null;
+    	if (this.getEntranceProcessingItems().size() < 1) return null;
+    	// TODO: support multiple entrance PIs
+        return (EntranceProcessingItem)this.getEntranceProcessingItems().toArray()[0];
     }
 }

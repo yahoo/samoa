@@ -1,4 +1,4 @@
-package com.yahoo.labs.samoa.topology;
+package com.yahoo.labs.samoa.utils;
 
 /*
  * #%L
@@ -20,25 +20,13 @@ package com.yahoo.labs.samoa.topology;
  * #L%
  */
 
-
-public interface ITopology {
-
-	public String getTopologyName();
-
-	public void setTopologyName(String topologyName) ;
-
-	public String getAppURI();
-
-	public void setAppURI(String appURI);
-
-	void addProcessingItem(IProcessingItem procItem);
-
-	void addStream(Stream stream);
-	
-	public void setEvaluationTask(String task);
-	
-	public String getEvaluationTask() ;
-	
-	public void topologyInit();
-	
+/**
+ * Represents the 3 schemes to partition the streams
+ * @author Anh Thu Vu
+ *
+ */
+public enum PartitioningScheme {
+	SHUFFLE, GROUP_BY_KEY, BROADCAST
 }
+// TODO: use this enum in S4
+// Storm doesn't seem to need this
