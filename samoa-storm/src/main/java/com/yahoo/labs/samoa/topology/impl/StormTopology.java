@@ -23,14 +23,14 @@ package com.yahoo.labs.samoa.topology.impl;
 import backtype.storm.topology.TopologyBuilder;
 
 import com.yahoo.labs.samoa.topology.IProcessingItem;
-import com.yahoo.labs.samoa.topology.Topology;
+import com.yahoo.labs.samoa.topology.AbstractTopology;
 
 /**
  * Adaptation of SAMOA topology in samoa-storm
  * @author Arinto Murdopo
  *
  */
-public class StormTopology extends Topology {
+public class StormTopology extends AbstractTopology {
 	
 	private TopologyBuilder builder;
 	
@@ -40,7 +40,7 @@ public class StormTopology extends Topology {
 	}
 	
 	@Override
-	protected void addProcessingItem(IProcessingItem procItem, int parallelismHint){
+	public void addProcessingItem(IProcessingItem procItem, int parallelismHint){
 		StormTopologyNode stormNode = (StormTopologyNode) procItem;
 		stormNode.addToTopology(this, parallelismHint);
 		super.addProcessingItem(procItem, parallelismHint);

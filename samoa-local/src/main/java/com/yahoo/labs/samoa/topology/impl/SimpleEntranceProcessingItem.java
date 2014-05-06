@@ -20,65 +20,14 @@ package com.yahoo.labs.samoa.topology.impl;
  * #L%
  */
 
-import com.yahoo.labs.samoa.core.ContentEvent;
 import com.yahoo.labs.samoa.core.EntranceProcessor;
-import com.yahoo.labs.samoa.topology.EntranceProcessingItem;
-import com.yahoo.labs.samoa.topology.Stream;
+import com.yahoo.labs.samoa.topology.LocalEntranceProcessingItem;
 
-class SimpleEntranceProcessingItem implements EntranceProcessingItem {
-
-    protected EntranceProcessor entranceProcessor;
-    protected Stream outputStream;
-
+class SimpleEntranceProcessingItem extends LocalEntranceProcessingItem {
     public SimpleEntranceProcessingItem(EntranceProcessor processor) {
-        this.entranceProcessor = processor;
-    }
-
-    @Override
-    public EntranceProcessor getProcessor() {
-        return this.entranceProcessor;
-    }
-
-    public boolean injectNextEvent() {
-        if (entranceProcessor.hasNext()) {
-            ContentEvent nextEvent = this.entranceProcessor.nextEvent();
-            outputStream.put(nextEvent);
-            return true;
-        } else
-            return false;
-        // return !nextEvent.isLastEvent();
+        super(processor);
     }
     
-    public void startSendingEvents() {
-		if (outputStream == null) 
-			throw new IllegalStateException("Try sending events from EntrancePI while outputStream is not set.");
-		
-		while(!entranceProcessor.isFinished()) {
-			if (!injectNextEvent()) {	
-				try {
-					Thread.sleep(100);
-				} catch (InterruptedException e) {
-					break;
-				}
-			}
-		}
-		
-		// Send last event
-		this.outputStream.put(entranceProcessor.nextEvent());
-	}
-
-    @Override
-    public EntranceProcessingItem setOutputStream(Stream stream) {
-        if (this.outputStream != null) {
-        	if (this.outputStream == stream) return this; // Allow reassign to the same output stream
-        	else
-        		throw new IllegalStateException("Output stream for an EntrancePI sohuld be initialized only once");
-        }
-        this.outputStream = stream;
-        return this;
-    }
-    
-    public Stream getOutputStream() {
-    	return this.outputStream;
-    }
+    // The default waiting time when there is no available events is 100ms
+    // Override waitForNewEvents() to change it
 }

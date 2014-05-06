@@ -24,28 +24,21 @@ package com.yahoo.labs.samoa.topology.impl;
  * #L%
  */
 
-import com.yahoo.labs.samoa.topology.EntranceProcessingItem;
-import com.yahoo.labs.samoa.topology.Topology;
+import com.yahoo.labs.samoa.topology.AbstractTopology;
 
-public class SimpleTopology extends Topology {
+public class SimpleTopology extends AbstractTopology {
+	SimpleTopology(String name) {
+		super(name);
+	}
 
-    public void run() {
-    	if (this.entranceProcessingItems == null)
+	public void run() {
+    	if (this.getEntranceProcessingItems() == null)
     		throw new IllegalStateException("You need to set entrance PI before running the topology.");
-    	if (this.entranceProcessingItems.size() != 1)
-    		throw new IllegalStateException("SimpleTopology supports 1 entrance PI only. Number of entrance PIs is "+this.entranceProcessingItems.size());
+    	if (this.getEntranceProcessingItems().size() != 1)
+    		throw new IllegalStateException("SimpleTopology supports 1 entrance PI only. Number of entrance PIs is "+this.getEntranceProcessingItems().size());
     	
-    	SimpleEntranceProcessingItem entrancePi = (SimpleEntranceProcessingItem) this.entranceProcessingItems.toArray()[0];
+    	SimpleEntranceProcessingItem entrancePi = (SimpleEntranceProcessingItem) this.getEntranceProcessingItems().toArray()[0];
     	entrancePi.getProcessor().onCreate(0); // id=0 as it is not used in simple mode
         entrancePi.startSendingEvents();
-    }
-
-    SimpleTopology(String topoName) {
-        super(topoName);
-    }
-    
-    @Override
-    protected void addEntranceProcessingItem(EntranceProcessingItem epi) {
-    	super.addEntranceProcessingItem(epi);
     }
 }

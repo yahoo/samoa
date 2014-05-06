@@ -20,121 +20,67 @@ package com.yahoo.labs.samoa.topology;
  * #L%
  */
 
-import java.util.HashSet;
-import java.util.Set;
+public interface Topology {
 
-/**
- * Topology abstract class.
- * 
- */
-public abstract class Topology {
+	/*
+	 * Name
+	 */
+	/**
+     * Get the topology's name
+     * 
+     * @return the name of the topology
+     */
+	public String getTopologyName();
 
-	private String topoName;
-    protected Set<Stream> streams;
-    protected Set<IProcessingItem> processingItems;
-    protected Set<EntranceProcessingItem> entranceProcessingItems;
-    private String task; // TODO: check if task is needed here
+	/**
+	 * Set the topology's name
+	 * 
+	 * @param topologyName
+	 * 			the name of the topology
+	 */
+	public void setTopologyName(String topologyName) ;
 
-    protected Topology(String name) {
-    	this.topoName = name;
-    	this.streams = new HashSet<Stream>();
-        this.processingItems = new HashSet<IProcessingItem>();
-        this.entranceProcessingItems = new HashSet<EntranceProcessingItem>();
-    }
-    
-    /**
-     * Gets the name of this topology
-     * 
-     * @return name of the topology
-     */
-    public String getTopologyName() {
-    	return this.topoName;
-    }
-    
-    /**
-     * Adds an Entrance processing item to the topology.
-     * 
-     * @param epi
-     * 			Entrance processing item
-     */
-    protected void addEntranceProcessingItem(EntranceProcessingItem epi) {
-    	this.entranceProcessingItems.add(epi);
-    	this.addProcessingItem(epi);
-    }
-    
-    /**
-     * Gets entrance processing items in the topology
-     * 
-     * @return the set of processing items
-     */
-    public Set<EntranceProcessingItem> getEntranceProcessingItems() {
-    	return this.entranceProcessingItems;
-    }
-
-    /**
-     * Add processing item to topology.
-     * 
-     * @param procItem
-     *            Processing item.
-     */
-    protected void addProcessingItem(IProcessingItem procItem) {
-        addProcessingItem(procItem, 1);
-    }
-
-    /**
-     * Add processing item to topology.
-     * 
-     * @param procItem
-     *            Processing item.
-     * @param parallelismHint
-     *            Processing item parallelism level.
-     */
-    protected void addProcessingItem(IProcessingItem procItem, int parallelismHint) {
-        this.processingItems.add(procItem);
-    }
-    
-    /**
-     * Gets processing items in the topology (including entrance processing items)
-     * 
-     * @return the set of processing items
-     */
-    public Set<IProcessingItem> getProcessingItems() {
-    	return this.processingItems;
-    }
-
-    /**
-     * Add stream to topology.
-     * 
-     * @param stream
-     */
-    protected void addStream(Stream stream) {
-        this.streams.add(stream);
-    }
-    
-    /**
-     * Gets streams in the topology
-     * 
-     * @return the set of streams
-     */
-    public Set<Stream> getStreams() {
-    	return this.streams;
-    }
-
-    /**
-     * Sets evaluation task.
-     * 
-     * @param task
-     */
-    public void setEvaluationTask(String task) {
-        this.task = task;
-    }
-
-    /**
-     * Gets evaluation task.
-     * 
-     * @return
-     */
-    public String getEvaluationTask() {
-        return task;
-    }  
+	/*
+	 * Entrance Processing Items
+	 */
+	/**
+	 * Add an EntranceProcessingItem to this topology
+	 * 
+	 * @param epi
+	 * 			the EntranceProcessingItem to be added
+	 */
+	void addEntranceProcessingItem(EntranceProcessingItem epi);
+	
+	
+	/*
+	 * Processing Items
+	 */
+	/**
+	 * Add a ProcessingItem to this topology
+	 * with default parallelism level (i.e. 1)
+	 * 
+	 * @param procItem
+	 * 			the ProcessingItem to be added
+	 */
+	void addProcessingItem(IProcessingItem procItem);
+	
+	/**
+	 * Add a ProcessingItem to this topology 
+	 * with an associated parallelism level
+	 * 
+	 * @param procItem
+	 * 			the ProcessingItem to be added
+	 * @param parallelismHint
+	 * 			the parallelism level 
+	 */
+	void addProcessingItem(IProcessingItem procItem, int parallelismHint);
+	
+	/*
+	 * Streams
+	 */
+	/**
+	 * 
+	 * @param stream
+	 */
+	void addStream(Stream stream);
 }

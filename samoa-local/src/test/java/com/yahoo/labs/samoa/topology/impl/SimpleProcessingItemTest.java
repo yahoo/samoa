@@ -63,7 +63,7 @@ public class SimpleProcessingItemTest {
 	@Test
 	public void testConstructor() {
 		assertSame("Processor was not set correctly.",processor,pi.getProcessor());
-		assertEquals("Parallelism was not set correctly.",parallelism,pi.getParalellism(),0);
+		assertEquals("Parallelism was not set correctly.",parallelism,pi.getParallelism(),0);
 	}
 	
 	@Test

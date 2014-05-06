@@ -30,6 +30,7 @@ import java.util.List;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 import com.yahoo.labs.samoa.core.ContentEvent;
+import com.yahoo.labs.samoa.topology.AbstractStream;
 import com.yahoo.labs.samoa.topology.IProcessingItem;
 import com.yahoo.labs.samoa.topology.Stream;
 import com.yahoo.labs.samoa.utils.StreamDestination;
@@ -38,29 +39,38 @@ import com.yahoo.labs.samoa.utils.StreamDestination;
  * 
  * @author abifet
  */
-class SimpleStream implements Stream {
+class SimpleStream extends AbstractStream {
     private List<StreamDestination> destinations;
-    private int shuffleCounter;
     private int maxCounter;
+    private int eventCounter;
 
     SimpleStream(IProcessingItem sourcePi) {
+    	super(sourcePi);
     	this.destinations = new LinkedList<StreamDestination>();
-    	this.shuffleCounter = 0;
+    	this.eventCounter = 0;
     	this.maxCounter = 1;
     }
 
+    private int getNextCounter() {
+    	if (maxCounter > 0 && eventCounter >= maxCounter) eventCounter = 0;
+    	this.eventCounter++;
+    	return this.eventCounter;
+    }
+
+    @Override
     public void put(ContentEvent event) {
-        this.shuffleCounter++;
-        if (this.shuffleCounter >= this.maxCounter) this.shuffleCounter = 0;
-        
-        SimpleProcessingItem pi;
+    	this.put(event, this.getNextCounter());
+    }
+    
+    private void put(ContentEvent event, int counter) {
+    	SimpleProcessingItem pi;
         int parallelism;
         for (StreamDestination destination:destinations) {
             pi = (SimpleProcessingItem) destination.getProcessingItem();
             parallelism = destination.getParallelism();
             switch (destination.getPartitioningScheme()) {
             case SHUFFLE:
-                pi.processEvent(event, shuffleCounter);
+                pi.processEvent(event, counter % parallelism);
                 break;
             case GROUP_BY_KEY:
                 HashCodeBuilder hb = new HashCodeBuilder();
@@ -77,11 +87,9 @@ class SimpleStream implements Stream {
         }
     }
 
-    public String getStreamId() {
-        return null;
-    }
-
     public void addDestination(StreamDestination destination) {
         this.destinations.add(destination);
+        if (maxCounter <= 0) maxCounter = 1;
+        maxCounter *= destination.getParallelism();
     }
 }

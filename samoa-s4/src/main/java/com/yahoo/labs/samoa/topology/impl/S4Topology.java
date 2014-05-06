@@ -21,6 +21,7 @@ package com.yahoo.labs.samoa.topology.impl;
  */
 
 import com.yahoo.labs.samoa.topology.EntranceProcessingItem;
+<<<<<<< HEAD
 import com.yahoo.labs.samoa.topology.IProcessingItem;
 import com.yahoo.labs.samoa.topology.Stream;
 import com.yahoo.labs.samoa.topology.Topology;
@@ -60,5 +61,43 @@ public class S4Topology extends Topology {
     	if (this.entranceProcessingItems.size() < 1) return null;
     	// TODO: support multiple entrance PIs
         return (EntranceProcessingItem)this.entranceProcessingItems.toArray()[0];
+=======
+import com.yahoo.labs.samoa.topology.AbstractTopology;
+
+public class S4Topology extends AbstractTopology {
+	
+	// CASEY: it seems evaluationTask is not used. 
+	// Remove it for now
+    
+//	private String _evaluationTask;
+
+//    S4Topology(String topoName, String evalTask) {
+//        super(topoName);
+//    }
+//
+//    S4Topology(String topoName) {
+//        this(topoName, null);
+//    }
+
+//    @Override
+//    public void setEvaluationTask(String evalTask) {
+//        _evaluationTask = evalTask;
+//    }
+//
+//    @Override
+//    public String getEvaluationTask() {
+//        return _evaluationTask;
+//    }
+    
+	S4Topology(String topoName) {
+		super(topoName);
+	}
+	
+    protected EntranceProcessingItem getEntranceProcessingItem() {
+    	if (this.getEntranceProcessingItems() == null) return null;
+    	if (this.getEntranceProcessingItems().size() < 1) return null;
+    	// TODO: support multiple entrance PIs
+    	return (EntranceProcessingItem)this.getEntranceProcessingItems().toArray()[0];
+>>>>>>> ae0a51e8eac2633acd9048744707d3fe0b184cd9
     }
 }
