@@ -21,47 +21,6 @@ package com.yahoo.labs.samoa.topology.impl;
  */
 
 import com.yahoo.labs.samoa.topology.EntranceProcessingItem;
-<<<<<<< HEAD
-import com.yahoo.labs.samoa.topology.IProcessingItem;
-import com.yahoo.labs.samoa.topology.Stream;
-import com.yahoo.labs.samoa.topology.Topology;
-
-public class S4Topology extends Topology {
-
-    // private static Logger logger = LoggerFactory.getLogger(S4Topology.class);
-    private String _evaluationTask;
-
-    S4Topology(String topoName) {
-        this(topoName, null);
-    }
-
-	S4Topology(String topoName, String evalTask) {
-		super(topoName);
-		_evaluationTask = evalTask;
-		// TODO include app
-	}
-
-	@Override
-	protected void addProcessingItem(IProcessingItem procItem) {
-		// TODO add here the paralelism
-		// the parallelism will be implemented by seting the amount of
-		// processing items to be instantiated
-		// If it is one use a singleton an instantiate in one of the partitions
-		//
-		super.addProcessingItem(procItem);
-//		for (int i = 1; i < procItem.getParalellism(); i++) {
-//			super.addProcessingItem(procItem.copy());
-//			logger.debug("ADDED COPY {}", i);
-//		}
-
-	}
-
-    public EntranceProcessingItem getEntranceProcessingItem() {
-    	if (this.entranceProcessingItems == null) return null;
-    	if (this.entranceProcessingItems.size() < 1) return null;
-    	// TODO: support multiple entrance PIs
-        return (EntranceProcessingItem)this.entranceProcessingItems.toArray()[0];
-=======
 import com.yahoo.labs.samoa.topology.AbstractTopology;
 
 public class S4Topology extends AbstractTopology {
@@ -98,6 +57,5 @@ public class S4Topology extends AbstractTopology {
     	if (this.getEntranceProcessingItems().size() < 1) return null;
     	// TODO: support multiple entrance PIs
     	return (EntranceProcessingItem)this.getEntranceProcessingItems().toArray()[0];
->>>>>>> ae0a51e8eac2633acd9048744707d3fe0b184cd9
     }
 }
