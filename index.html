@@ -1,159 +1,211 @@
-<!doctype html>
-<html>
+<!DOCTYPE html>
+<html lang="en">
   <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <title>SAMOA by yahoo</title>
-
-    <link rel="stylesheet" href="stylesheets/styles.css">
-    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
-    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
-    <!--[if lt IE 9]>
-    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <link type="text/css" href="css/pages.css" media="all" rel="stylesheet">
   </head>
-  <body>
-    <div class="wrapper">
-      <header>
-        <h1>SAMOA</h1>
-        <p>Scalable Advanced Massive Online Analysis</p>
 
-        <p class="view"><a href="https://github.com/yahoo/samoa">View the Project on GitHub <small>yahoo/samoa</small></a></p>
+  <body class="home ">
 
 
-        <ul>
+<section id="hero-spot" class="hero-spot">
+    
+   <h1>SAMOA</h1>
+    <h2>Scalable Advanced Massive Online Analysis</h2>    
+    <h3>View on <a href="https://github.com/yahoo/samoa">GitHub <small>yahoo/samoa</small></a></h3>
+    <div id="slideshow">
+      <img src="images/slideshow/runtime.png" alt="Samoa" class="slide active" height= "300" />
+    </div>
+</section>
+
+<section id="tutorial" class="next-steps">
+  <h1>SAMOA is distributed streaming machine learning (ML) framework that contains a 
+programing abstraction for distributed streaming ML algorithms.</h1>
+
+<h2>SAMOA enables development of new ML algorithms without dealing with 
+the complexity of underlying streaming processing engines (SPE, such 
+as Apache Storm and Apache S4). SAMOA users can develop 
+distributed streaming ML algorithms once and execute the algorithms 
+in multiple SPEs, i.e., code the algorithms once and execute them in multiple SPEs.</h2>
+
+  <ul class="next-steps wrapper">
+    <li class="jekyll">
+      <a class="hero-octicon" href="#build">
+        <span class="mega-octicon octicon-pencil"></span>
+      </a>
+      <h4><a href="#build">Build SAMOA</a></h4>
+	<p> Build SAMOA for Apache Storm, Apache S4, or Local mode.</p>
+    </li>
+    <li class="custom-urls">
+      <a class=hero-octicon" href="#getting-started">
+        <span class="mega-octicon octicon-link"></span>
+      </a>
+      <h4><a href="#getting-started">Getting started!</a></h4>
+	<p>Hands-on with SAMOA: Getting Started in 5 minutes!</p>
+    </li>
+    <li class="guides">
+      <a class="hero-octicon" href="https://github.com/yahoo/samoa/wiki/">
+        <span class="mega-octicon octicon-book"></span>
+      </a>
+      <h4><a href="https://github.com/yahoo/samoa/wiki/">Documentation</a></h4>
+	<p>Learn how to use SAMOA in the various different ways possible. </p>
+
+    </li>
+  </ul>
+</section>
+
+<section class="tutorial">
+<h1>Slides</h1>
+<h2><a href="https://speakerdeck.com/gdfm/samoa-a-platform-for-mining-big-data-streams"><img src="https://camo.githubusercontent.com/28b855957bb777e130065cbd4b7ffd0434ae2ed2/687474703a2f2f7961686f6f2e6769746875622e696f2f73616d6f612f73616d6f612d736c696465732e6a7067" alt="SAMOA Slides" data-canonical-src="http://yahoo.github.io/samoa/samoa-slides.jpg" style="max-width:100%;"></a></h2>
+<h2>G. De Francisci Morales <a href="http://melmeric.files.wordpress.com/2013/04/samoa-a-platform-for-mining-big-data-streams.pdf">SAMOA: A Platform for Mining Big Data Streams</a>
+Keynote Talk at <a href="http://www.ramss.ws/2013/program/">RAMSS '13</a>: 2nd International Workshop on Real-Time Analysis and Mining of Social Streams WWW, Rio De Janeiro, 2013.</h2>
+ </section>
+<section class="content">
+<h1>SAMOA Developer's Guide</h1>
+
+<h2><a href="SAMOA-Developers-Guide-0-0-1.pdf"><img style="max-width:95%;border:3px solid black;" src="http://yahoo.github.io/samoa/Manual.png" alt="SAMOA Developer's guide" height="250"> </a></h2>
+   </section><section class="tutorial">
+<h1>Contributors</h1>
+
+<h2><a href="contributors.html">List of contributors to the SAMOA project</a>.</h2>
+   </section><section class="next-steps">
+<h1>License</h1>
+
+<h2>The use and distribution terms for this software are covered by the
+Apache License, Version 2.0 (<a href="http://www.apache.org/licenses/LICENSE-2.0.html">http://www.apache.org/licenses/LICENSE-2.0.html</a>).</h2>
+   
+</section>
+
+<section id="build" class="tutorial">
+  <h1>Build SAMOA</h1>
+  
+  <!-- ### Start of tutorials -->
+  <ul id="user-site" class="tutorial-list wrapper active">
+ 
+
+    <li id="terminal-step-1" class="option-terminal">
+      <h4>Apache Storm</h4>
+      <p>Go to the folder where you want to store your project, and clone the new repository:</p>
+
+      <div class="terminal">
+        <div class="header"></div>
+        <div class="shell">
+          <p><span class="path">~</span><span class="prompt">$</span>git clone git@github.com:yahoo/samoa.git</p>
+<p><span class="path">~</span><span class="prompt">$</span>cd samoa</p>
+<p><span class="path">~</span><span class="prompt">$</span>mvn -Pstorm package</p>
+        </div>
+      </div>
+<p>The deployable jar for SAMOA will be in <code>target/SAMOA-Storm-0.0.1-SNAPSHOT.jar</code>.</p>
+    </li>
+
+  <li id="terminal-step-1" class="option-terminal">
+      <h4>Apache S4</h4>
+      <p>If you want to compile SAMOA for S4, you will need to install the S4 dependencies
+manually as explained in <a href="https://github.com/yahoo/samoa/wiki/Executing-SAMOA-with-Apache-S4">Executing SAMOA with Apache S4</a>.</p>
+<div class="terminal">
+        <div class="header"></div>
+        <div class="shell">
+          <p><span class="path">~</span><span class="prompt">$</span>git clone git@github.com:yahoo/samoa.git</p>
+<p><span class="path">~</span><span class="prompt">$</span>cd samoa</p>
+<p><span class="path">~</span><span class="prompt">$</span>mvn -Ps4 package</p>
+        </div>
+      </div>
+<p>The deployable jar for SAMOA will be in <code>target/SAMOA-S4-0.0.1-SNAPSHOT.jar</code>.</p>
+    </li>
+
+  <li id="terminal-step-1" class="option-terminal">
+      <h4>Local Test Mode</h4>
+<p>If you want to test SAMOA in a local environment, simply clone the repository and install SAMOA.</p>
+<div class="terminal">
+        <div class="header"></div>
+        <div class="shell">
+          <p><span class="path">~</span><span class="prompt">$</span>git clone git@github.com:yahoo/samoa.git</p>
+<p><span class="path">~</span><span class="prompt">$</span>cd samoa</p>
+<p><span class="path">~</span><span class="prompt">$</span>mvn package</p>
+        </div>
+      </div>
+<p>The deployable jar for SAMOA will be in <code>target/SAMOA-Local-0.0.1-SNAPSHOT.jar</code>.</p>
+    </li>
+
+  </ul>
+  <!-- End of user site tutorial -->
+
+ </section>
+<section id="getting-started" class="tutorial">
+  <h1>Getting Started</h1>
+  
+  <!-- ### Start of tutorials -->
+  <ul id="user-site" class="tutorial-list wrapper active">
+ 
+
+    <li id="terminal-step-1" class="option-terminal">
+      <h4>Download SAMOA</h4>
+      <div class="terminal">
+        <div class="header"></div>
+        <div class="shell">
+          <p><span class="path">~</span><span class="prompt">$</span>git clone git@github.com:yahoo/samoa.git</p>
+<p><span class="path">~</span><span class="prompt">$</span>cd samoa</p>
+<p><span class="path">~</span><span class="prompt">$</span>mvn package</p>
+        </div>
+      </div>
+    </li>
+
+<li id="terminal-step-1" class="option-terminal">
+      <h4>Download the Forest CoverType dataset </h4>
+      <p>If you want to compile SAMOA for S4, you will need to install the S4 dependencies
+manually as explained in <a href="https://github.com/yahoo/samoa/wiki/Executing-SAMOA-with-Apache-S4">Executing SAMOA with Apache S4</a>.</p>
+<div class="terminal">
+        <div class="header"></div>
+        <div class="shell">
+          <p><span class="path">~</span><span class="prompt">$</span>wget "http://downloads.sourceforge.net/project/moa-datastream/Datasets/Classification/covtypeNorm.arff.zip"</p>
+<p><span class="path">~</span><span class="prompt">$</span>unzip covtypeNorm.arff.zip </p>
+        </div>
+      </div>
+<p><em>Forest Covertype</em> contains the forest cover type for 30 x 30 meter cells obtained from the US Forest Service (USFS) Region 2 Resource Information System (RIS) data. It contains 581,012 instances and 54 attributes, and it has been used in several articles on data stream classification.</p>
+    </li>
+
+  <li id="terminal-step-1" class="option-terminal">
+      <h4>Run an example</h4>
+<p>Classifying the CoverType dataset with the bagging algorithm</p>
+<div class="terminal">
+        <div class="header"></div>
+        <div class="shell">
+          <p><span class="path">~</span><span class="prompt">$</span>bin/samoa local target/SAMOA-Local-0.0.1-SNAPSHOT.jar "PrequentialEvaluation -l classifiers.ensemble.Bagging \
+    -s (ArffFileStream -f covtypeNorm.arff) -f 100000"</p>
+        </div>
+      </div>
+<p>The output will be a list of the evaluation results, plotted each 100,000 instances.</p>
+    </li>
+</ul>
+ </section>
+
+
+
+<script src="js/jquery.js"></script>
+<!--<script>window.slides = {"bower":"Bower","vht":"Vht", "architecture":"Architecture"}</script>-->
+<script src="js/application.js"></script>
+
+
+<footer class="page-footer">
+   <ul class="site-footer-links right">
           <li><a href="https://github.com/yahoo/samoa/zipball/master">Download <strong>ZIP File</strong></a></li>
           <li><a href="https://github.com/yahoo/samoa/tarball/master">Download <strong>TAR Ball</strong></a></li>
           <li><a href="https://github.com/yahoo/samoa">View On <strong>GitHub</strong></a></li>
-        </ul>
-      </header>
-      <section>
-        <p>SAMOA is a platform for mining on big data streams.
-It is a distributed streaming machine learning (ML) framework that contains a 
-programing abstraction for distributed streaming ML algorithms.</p>
+  </ul>
 
-<p>SAMOA enables development of new ML algorithms without dealing with 
-the complexity of underlying streaming processing engines (SPE, such 
-as Apache Storm and Apache S4). SAMOA also provides extensibility in integrating
-new SPEs into the framework. These features allow SAMOA users to develop 
-distributed streaming ML algorithms once and to execute the algorithms 
-in multiple SPEs, i.e., code the algorithms once and execute them in multiple SPEs.</p>
+  <a href="/">
+    <span class="mega-octicon octicon-mark-github"></span>
+  </a>
 
-<h2>
-<a name="build" class="anchor" href="#build"><span class="octicon octicon-link"></span></a>Build</h2>
-
-<h3>
-<a name="storm" class="anchor" href="#storm"><span class="octicon octicon-link"></span></a>Storm</h3>
-
-<p>Simply clone the repository and install SAMOA.</p>
-
-<div class="highlight highlight-bash"><pre>git clone git@github.com:yahoo/samoa.git
-<span class="nb">cd </span>samoa
-mvn -Pstorm package
-</pre></div>
-
-<p>The deployable jar for SAMOA will be in <code>target/SAMOA-Storm-0.0.1-SNAPSHOT.jar</code>.</p>
-
-<h3>
-<a name="s4" class="anchor" href="#s4"><span class="octicon octicon-link"></span></a>S4</h3>
-
-<p>If you want to compile SAMOA for S4, you will need to install the S4 dependencies
-manually as explained in <a href="https://github.com/yahoo/samoa/wiki/Executing-SAMOA-with-Apache-S4">Executing SAMOA with Apache S4</a>.</p>
-
-<p>Once the dependencies if needed are installed, you can simply clone the repository and install SAMOA.</p>
-
-<div class="highlight highlight-bash"><pre>git clone git@github.com:yahoo/samoa.git
-<span class="nb">cd </span>samoa
-mvn -Ps4 package
-</pre></div>
-
-<p>The deployable jars for SAMOA will be in <code>target/SAMOA-S4-0.0.1-SNAPSHOT.jar</code>.</p>
-
-<h3>
-<a name="local-test-mode" class="anchor" href="#local-test-mode"><span class="octicon octicon-link"></span></a>Local Test Mode</h3>
-
-<p>If you want to test SAMOA in a local environment, simply clone the repository and install SAMOA.</p>
-
-<div class="highlight highlight-bash"><pre>git clone git@github.com:yahoo/samoa.git
-<span class="nb">cd </span>samoa
-mvn package
-</pre></div>
-
-<p>The deployable jar for SAMOA will be in <code>target/SAMOA-Local-0.0.1-SNAPSHOT.jar</code>.</p>
-
-
-<h2>
-<a name="documentation" class="anchor" href="#documentation"><span class="octicon octicon-link"></span></a>Documentation</h2>
-
-<p>The documentation is intended to give an introduction on how to use SAMOA in the various different ways possible. 
-As a user you can use it to develop new algorithms and test different Stream Processing Engines.</p>
-
-<ul>
-<li><a href="https://github.com/yahoo/samoa/wiki/Getting%20Started">0 Getting Started in 5 minutes</a></li>
-<li>
-<a href="https://github.com/yahoo/samoa/wiki/Scalable%20Advanced%20Massive%20Online%20Analysis">1 Scalable Advanced Massive Online Analysis</a>
-
-<ul>
-<li><a href="https://github.com/yahoo/samoa/wiki/Building%20SAMOA">1.0 Building SAMOA</a></li>
-<li><a href="https://github.com/yahoo/samoa/wiki/Executing%20SAMOA%20with%20Apache%20Storm">1.1 Executing SAMOA with Apache Storm</a></li>
-<li><a href="https://github.com/yahoo/samoa/wiki/Executing-SAMOA-with-Apache-S4">1.2 Executing SAMOA with Apache S4</a></li>
-</ul>
-</li>
-<li>
-<a href="https://github.com/yahoo/samoa/wiki/SAMOA%20and%20Machine%20Learning">2 SAMOA and Machine Learning</a>
-
-<ul>
-<li><a href="https://github.com/yahoo/samoa/wiki/Prequential%20Evaluation%20Task">2.1 Prequential Evaluation Task</a></li>
-<li><a href="https://github.com/yahoo/samoa/wiki/Vertical%20Hoeffding%20Tree%20Classifier">2.2 Vertical Hoeffding Tree Classifier</a></li>
-<li><a href="https://github.com/yahoo/samoa/wiki/Bagging-and-Boosting">2.3 Bagging and Boosting</a></li>
-<li><a href="https://github.com/yahoo/samoa/wiki/Distributed%20Stream%20Clustering">2.4 Distributed Stream Clustering</a></li>
-</ul>
-</li>
-<li>
-<a href="https://github.com/yahoo/samoa/wiki/SAMOA%20Topology">3 SAMOA Topology</a>
-
-<ul>
-<li><a href="https://github.com/yahoo/samoa/wiki/Processor">3.1 Processor</a></li>
-<li><a href="https://github.com/yahoo/samoa/wiki/Content%20Event">3.2 Content Event</a></li>
-<li><a href="https://github.com/yahoo/samoa/wiki/Stream">3.3 Stream</a></li>
-<li><a href="https://github.com/yahoo/samoa/wiki/Task">3.4 Task</a></li>
-<li><a href="https://github.com/yahoo/samoa/wiki/Topology%20Builder">3.5 Topology Builder</a></li>
-<li><a href="https://github.com/yahoo/samoa/wiki/Topology%20Starter">3.6 Topology Starter</a></li>
-<li><a href="https://github.com/yahoo/samoa/wiki/Learner">3.7 Learner</a></li>
-<li><a href="https://github.com/yahoo/samoa/wiki/Processing%20Item">3.8 Processing Item</a></li>
-</ul>
-</li>
-<li><a href="https://github.com/yahoo/samoa/wiki/Developing%20New%20Tasks%20in%20SAMOA">4 Developing New Tasks in SAMOA</a></li>
-</ul><h2>
-<a name="slides" class="anchor" href="#slides"><span class="octicon octicon-link"></span></a>Slides</h2>
-
-<script async class="speakerdeck-embed" data-id="fee15d509f0a0130a1252e07bed0c63d" data-ratio="1.33333333333333" src="//speakerdeck.com/assets/embed.js"></script>
-
-<p>G. De Francisci Morales <a href="http://melmeric.files.wordpress.com/2013/04/samoa-a-platform-for-mining-big-data-streams.pdf">SAMOA: A Platform for Mining Big Data Streams</a>
-Keynote Talk at <a href="http://www.ramss.ws/2013/program/">RAMSS ’13</a>: 2nd International Workshop on Real-Time Analysis and Mining of Social Streams WWW, Rio De Janeiro, 2013.</p>
-
-<h2>
-<a name="license" class="anchor" href="#contributors"><span class="octicon octicon-link"></span></a>SAMOA Developer's Guide</h2>
-
-<p><a href="SAMOA-Developers-Guide-0-0-1.pdf"><img style="max-width:95%;border:3px solid black;" src="Manual.png" alt="SAMOA Developer's guide" height="250"> </a></p>
-
-<h2>
-<a name="license" class="anchor" href="#contributors"><span class="octicon octicon-link"></span></a>Contributors</h2>
-
-<p><a href="contributors.html">List of contributors to the SAMOA project</a>.</p>
-
-<h2>
-<a name="license" class="anchor" href="#license"><span class="octicon octicon-link"></span></a>License</h2>
-
-<p>The use and distribution terms for this software are covered by the
-Apache License, Version 2.0 (<a href="http://www.apache.org/licenses/LICENSE-2.0.html">http://www.apache.org/licenses/LICENSE-2.0.html</a>).</p>
-      </section>
-      <footer>
-        <p>This project is maintained by <a href="https://github.com/yahoo">yahoo</a></p>
-        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
-      </footer>
-    </div>
-    <script src="javascripts/scale.fix.js"></script>
+  <ul class="site-footer-links">
+    <li>&copy; 2014 <span>SAMOA</span></li>
+     <li><a href="#build">Build SAMOA</a></h4>
+     <li><a href="https://github.com/yahoo/samoa/wiki/Getting%20Started">Getting started!</a></li>
+     <li><a href="https://github.com/yahoo/samoa/wiki/">Documentation</a></li>
+  </ul>
+</footer>
 
 <script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -161,10 +213,10 @@ Apache License, Version 2.0 (<a href="http://www.apache.org/licenses/LICENSE-2.0
   m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
   })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-  ga('create', 'UA-586895-6', 'yahoo.github.io');
+  ga('create', 'UA-3769691-40', 'github.com');
   ga('send', 'pageview');
+</script>
 
-</script>    
-
-  </body>
+</body>
 </html>
+
