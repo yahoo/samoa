@@ -24,6 +24,13 @@ import com.yahoo.labs.samoa.core.ContentEvent;
 import com.yahoo.labs.samoa.core.Processor;
 import com.yahoo.labs.samoa.topology.Stream;
 
+/**
+ * Combiner Processor: merge output streams from Default Rule Learner
+ * and Model Aggregator Processors (HAMR).
+ * 
+ * @author Anh Thu Vu
+ *
+ */
 public class AMRResultCombinerProcessor implements Processor {
 
 	/**
