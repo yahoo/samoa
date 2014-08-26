@@ -12,3 +12,6 @@ target/
 #intellij
 .idea/
 .iml
+
+#sentinel
+samoa-api/src/main/java/com/yahoo/labs/samoa/sentinel
