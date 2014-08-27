@@ -3,9 +3,9 @@ This is a fork of open-source project ```SAMOA``` for Sentinel.
  
 ## Getting Started 
 
-*   Clone this reposotory 
+*   Clone this repository 
 *   Clone Sentinel --- ```git clone https://github.com/ambodi/sentinel```
-*   Put Sentinel in 
+*   Put Sentinel under ```samoa-api/src/main/java/com/yahoo/labs/samoa/sentinel```
 *   Add your ```twitter4j.properties``` file in the root of the project. More info at [Twitter 4J's Documentation on Generic properties](http://twitter4j.org/en/configuration.html "Title")
 *   Run ```mvn clean package```
 *   To Debug or Run 
