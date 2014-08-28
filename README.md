@@ -7,11 +7,9 @@ This is a fork of open-source project ```SAMOA``` for Sentinel.
 *   Clone Sentinel --- ```git clone https://github.com/ambodi/sentinel```
 *   Put Sentinel under ```samoa-api/src/main/java/com/yahoo/labs/samoa/sentinel```
 *   Add your ```twitter4j.properties``` file in the root of the project. More info at [Twitter 4J's Documentation on Generic properties](http://twitter4j.org/en/configuration.html "Title")
+*   Run ```mvn clean install```
 *   Run ```mvn clean package```
-*   To Debug or Run 
-    ```-X exec:java -Dexec.mainClass=com.yahoo.labs.samoa.app``` 
-    Or 
-    ```bin/samoa local target/SAMOA-Local-0.2.0-SNAPSHOT.jar   "com.yahoo.labs.samoa.sentinel.task.SentimentAnalysis -p 4 -i 100"```
+*   To Run the project locally, run ```bin/samoa local target/SAMOA-Local-0.2.0-SNAPSHOT.jar "PrequentialEvaluation -d /tmp/dump.csv -i 1000000 -f 100000 -l (classifiers.trees.VerticalHoeffdingTree -p 4) -s sentinel.model.TwitterStreamInstance"```
 
 <!--
   Copyright (c) 2013 Yahoo! Inc. All Rights Reserved.
