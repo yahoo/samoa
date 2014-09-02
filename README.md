@@ -32,16 +32,16 @@ Add ```twitter4j.properties``` file in the root of the project. More info at [Tw
 mvn clean install
 ```
 
- 
+Local Cluster: 
 ```
 mvn package 
 ```
-(Local Cluster)
- 
+
+Apache Storm Cluster:
 ```
 mvn -Pstorm package
 ```
-(Apache Storm Cluster)
+
 
 ## Tasks
 
