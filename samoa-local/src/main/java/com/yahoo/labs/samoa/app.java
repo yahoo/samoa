@@ -26,18 +26,22 @@ package com.yahoo.labs.samoa;
  * #L%
  */
 
-import com.yahoo.labs.samoa.sentinel.task.SentimentAnalysis;
+import com.yahoo.labs.samoa.sentinel.model.TwitterStreamInstance;
+import com.yahoo.labs.samoa.tasks.PrequentialEvaluation;
 import com.yahoo.labs.samoa.topology.impl.SimpleComponentFactory;
 
 public class app
 {
     public static void main( String[] args ) {
-        SentimentAnalysis se = new SentimentAnalysis();
-        se.setFactory(new SimpleComponentFactory());
+        PrequentialEvaluation pe = new PrequentialEvaluation();
+        pe.setFactory(new SimpleComponentFactory());
 
-        se.parallelismOption.setValue(4);
-        se.instanceLimitOption.setValue(100);
+        pe.dumpFileOption.setValueViaCLIString("/tmp/dump.csv");
+        pe.instanceLimitOption.setValue(50);
+        pe.sampleFrequencyOption.setValue(5);
+        pe.learnerOption.setValueViaCLIString("classifiers.trees.VerticalHoeffdingTree -p 1");
+        pe.streamTrainOption.setValueViaCLIString(TwitterStreamInstance.class.getName());
 
-        se.init();
+        pe.init();
     }
 }
