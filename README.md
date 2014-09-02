@@ -27,17 +27,17 @@ samoa-api/src/main/java/com/yahoo/labs/samoa/sentinel
 Add ```twitter4j.properties``` file in the root of the project. More info at [Twitter 4J's Documentation on Generic properties](http://twitter4j.org/en/configuration.html "Title")
 
 ## Build
-* 
+
 ```
 mvn clean install
 ```
 
-* 
+ 
 ```
 mvn package 
 ```
 (Local Cluster)
-* 
+ 
 ```
 mvn -Pstorm package
 ```
@@ -46,7 +46,7 @@ mvn -Pstorm package
 ## Tasks
 
 ### Real-time Sentiment Analysis on Twitter Public Stream 
-#### Bash
+#### Run via Bash
 Using Vertical Hoeffding Tree as a distributed parallel classification algorithm, you can perform sentiment analysis on [Twitter Public Stream](https://dev.twitter.com/docs/streaming-apis/streams/public) with Prequential Evaluation Task. 
 
 To perform sentiment analysis on a sample of 100000 tweets in real-time with 4 parallel nodes in your local cluster, run
@@ -60,7 +60,7 @@ Or if you run it in Apache Storm, run
 ```
 bin/samoa storm target/SAMOA-Storm-0.2.0-SNAPSHOT.jar "PrequentialEvaluation -d /tmp/dump.csv -i 1000000 -f 100000 -l (classifiers.trees.VerticalHoeffdingTree -p 4) -s com.yahoo.labs.samoa.sentinel.model.TwitterStreamInstance"
 ```
-### Code
+### Configuration by Code
 Put the following code under ```samoa-local(samoa-storm)/src/main/java/com/yahoo/labs/samoa/```:
 
     public static void main( String[] args ) {
