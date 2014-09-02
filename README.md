@@ -11,7 +11,7 @@ new SPEs into the framework. These features allow SAMOA users to develop
 distributed streaming ML algorithms once and to execute the algorithms 
 in multiple SPEs, i.e., code the algorithms once and execute them in multiple SPEs.
 
-# Sentinel
+# Setup Sentinel
 This is a fork of ```SAMOA``` for [Sentinel](https://github.com/ambodi/sentinel) project.
   
 ## Install
@@ -46,7 +46,9 @@ mvn -Pstorm package
 ## Tasks
 
 ### Real-time Sentiment Analysis on Twitter Public Stream 
+#### Bash
 Using Vertical Hoeffding Tree as a distributed parallel classification algorithm, you can perform sentiment analysis on [Twitter Public Stream](https://dev.twitter.com/docs/streaming-apis/streams/public) with Prequential Evaluation Task. 
+
 To perform sentiment analysis on a sample of 100000 tweets in real-time with 4 parallel nodes in your local cluster, run
 
 ```
@@ -58,8 +60,26 @@ Or if you run it in Apache Storm, run
 ```
 bin/samoa storm target/SAMOA-Storm-0.2.0-SNAPSHOT.jar "PrequentialEvaluation -d /tmp/dump.csv -i 1000000 -f 100000 -l (classifiers.trees.VerticalHoeffdingTree -p 4) -s com.yahoo.labs.samoa.sentinel.model.TwitterStreamInstance"
 ```
+### Code
+Put the following code under ```samoa-local(samoa-storm)/src/main/java/com/yahoo/labs/samoa/```:
+
+    public static void main( String[] args ) {
+        PrequentialEvaluation pe = new PrequentialEvaluation();
+        pe.setFactory(new SimpleComponentFactory());
+
+        pe.dumpFileOption.setValueViaCLIString("/tmp/dump.csv");
+        pe.instanceLimitOption.setValue(50);
+        pe.sampleFrequencyOption.setValue(5);
+        pe.learnerOption.setValueViaCLIString("classifiers.trees.VerticalHoeffdingTree -p 1");
+        pe.streamTrainOption.setValueViaCLIString(TwitterStreamInstance.class.getName());
+
+        pe.init();
+    }
+
+Run ```mvn -X exec:java -Dexec.mainClass=com.yahoo.labs.samoa.app```
 
 
+This is preferred if you are developing and want to make use of debug mode.  
 <!--
   Copyright (c) 2013 Yahoo! Inc. All Rights Reserved.
 
