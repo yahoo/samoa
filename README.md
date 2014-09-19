@@ -1,3 +1,4 @@
+[ ![Codeship Status for ambodi/samoa](https://www.codeship.io/projects/d78cc130-2227-0132-8038-72718e888449/status)](https://www.codeship.io/projects/36448)
 SAMOA: Scalable Advanced Massive Online Analysis.
 =================
 SAMOA is a platform for mining on big data streams.
