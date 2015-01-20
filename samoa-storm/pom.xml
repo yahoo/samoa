@@ -56,8 +56,8 @@
         </dependency>
 
         <dependency>
-            <groupId>storm</groupId>
-            <artifactId>storm</artifactId>
+            <groupId>org.apache.storm</groupId>
+            <artifactId>storm-core</artifactId>
             <version>${storm.version}</version>
             <scope>provided</scope>
         </dependency>
