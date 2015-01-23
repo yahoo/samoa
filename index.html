@@ -25,12 +25,12 @@
 </section>
 
 <section id="tutorial" class="next-steps">
-  <h1>SAMOA is distributed streaming machine learning (ML) framework that contains a 
+  <h1>Apache SAMOA is distributed streaming machine learning (ML) framework that contains a 
 programing abstraction for distributed streaming ML algorithms.</h1>
 
-<h2>SAMOA enables development of new ML algorithms without dealing with 
+<h2>Apache SAMOA enables development of new ML algorithms without dealing with 
 the complexity of underlying streaming processing engines (SPE, such 
-as Apache Storm and Apache S4). SAMOA users can develop 
+as Apache Storm and Apache S4). Apache SAMOA users can develop 
 distributed streaming ML algorithms once and execute the algorithms 
 in multiple SPEs, i.e., code the algorithms once and execute them in multiple SPEs.</h2>
 
@@ -39,22 +39,22 @@ in multiple SPEs, i.e., code the algorithms once and execute them in multiple SP
       <a class="hero-octicon" href="#build">
         <span class="mega-octicon octicon-pencil"></span>
       </a>
-      <h4><a href="#build">Build SAMOA</a></h4>
-	<p> Build SAMOA for Apache Storm, Apache S4, or Local mode.</p>
+      <h4><a href="#build">Build Apache SAMOA</a></h4>
+	<p> Build Apache SAMOA for Apache Storm, Apache S4, or Local mode.</p>
     </li>
     <li class="custom-urls">
       <a class="hero-octicon" href="#getting-started">
         <span class="mega-octicon octicon-link"></span>
       </a>
       <h4><a href="#getting-started">Getting started!</a></h4>
-	<p>Hands-on with SAMOA: Getting Started in 5 minutes!</p>
+	<p>Hands-on with Apache SAMOA: Getting Started in 5 minutes!</p>
     </li>
     <li class="guides">
       <a class="hero-octicon" href="https://github.com/yahoo/samoa/wiki/">
         <span class="mega-octicon octicon-book"></span>
       </a>
       <h4><a href="https://github.com/yahoo/samoa/wiki/">Documentation</a></h4>
-	<p>Learn how to use SAMOA in the various different ways possible. </p>
+	<p>Learn how to use Apache SAMOA in the various different ways possible. </p>
 
     </li>
   </ul>
@@ -71,7 +71,7 @@ Keynote Talk at <a href="http://www.ramss.ws/2013/program/">RAMSS '13</a>: 2nd I
 <h2><iframe width="640" height="360" src="//www.youtube.com/embed/7WsDKNU1A7o?feature=player_detailpage" frameborder="0" allowfullscreen></iframe></h2>
 <h2>NoSQL matters Conference, Barcelona 2013</h2>
 
-<h1>SAMOA Developer's Guide</h1>
+<h1>Apache SAMOA Developer's Guide</h1>
 
 <h2><a href="SAMOA-Developers-Guide-0-0-1.pdf"><img style="max-width:95%;border:3px solid black;" src="http://yahoo.github.io/samoa/Manual.png" alt="SAMOA Developer's guide" height="250"> </a></h2>
    </section><section class="tutorial">
@@ -81,9 +81,9 @@ Keynote Talk at <a href="http://www.ramss.ws/2013/program/">RAMSS '13</a>: 2nd I
 
 <h1>Mailing lists</h1>
 
-<h2>SAMOA users:
+<h2>Apache SAMOA users:
 <a href="http://groups.google.com/group/samoa-user">http://groups.google.com/group/samoa-user</a></h2>
-<h2>SAMOA developers:
+<h2>Apache SAMOA developers:
 <a href="http://groups.google.com/group/samoa-dev">http://groups.google.com/group/samoa-dev</a></h2>
 <h1>Contributors</h1>
 <h2><a href="contributors.html">List of contributors to the SAMOA project</a>.</h2>
@@ -96,7 +96,7 @@ Apache License, Version 2.0 (<a href="http://www.apache.org/licenses/LICENSE-2.0
 </section>
 
 <section id="build" class="tutorial">
-  <h1>Build SAMOA</h1>
+  <h1>Build Apache SAMOA</h1>
   
   <!-- ### Start of tutorials -->
   <ul id="user-site" class="tutorial-list wrapper active">
@@ -114,13 +114,13 @@ Apache License, Version 2.0 (<a href="http://www.apache.org/licenses/LICENSE-2.0
 <p><span class="path">~</span><span class="prompt">$</span>mvn -Pstorm package</p>
         </div>
       </div>
-<p>The deployable jar for SAMOA will be in <code>target/SAMOA-Storm-0.0.1-SNAPSHOT.jar</code>.</p>
+<p>The deployable jar for Apache SAMOA will be in <code>target/SAMOA-Storm-0.0.1-SNAPSHOT.jar</code>.</p>
     </li>
 
   <li id="terminal-step-1" class="option-terminal">
       <h4>Apache S4</h4>
-      <p>If you want to compile SAMOA for S4, you will need to install the S4 dependencies
-manually as explained in <a href="https://github.com/yahoo/samoa/wiki/Executing-SAMOA-with-Apache-S4">Executing SAMOA with Apache S4</a>.</p>
+      <p>If you want to compile Apache SAMOA for S4, you will need to install the S4 dependencies
+manually as explained in <a href="https://github.com/yahoo/samoa/wiki/Executing-SAMOA-with-Apache-S4">Executing Apache SAMOA with Apache S4</a>.</p>
 <div class="terminal">
         <div class="header"></div>
         <div class="shell">
@@ -129,12 +129,12 @@ manually as explained in <a href="https://github.com/yahoo/samoa/wiki/Executing-
 <p><span class="path">~</span><span class="prompt">$</span>mvn -Ps4 package</p>
         </div>
       </div>
-<p>The deployable jar for SAMOA will be in <code>target/SAMOA-S4-0.0.1-SNAPSHOT.jar</code>.</p>
+<p>The deployable jar for Apache SAMOA will be in <code>target/SAMOA-S4-0.0.1-SNAPSHOT.jar</code>.</p>
     </li>
 
   <li id="terminal-step-1" class="option-terminal">
       <h4>Local Test Mode</h4>
-<p>If you want to test SAMOA in a local environment, simply clone the repository and install SAMOA.</p>
+<p>If you want to test Apache SAMOA in a local environment, simply clone the repository and install Apache SAMOA.</p>
 <div class="terminal">
         <div class="header"></div>
         <div class="shell">
@@ -143,7 +143,7 @@ manually as explained in <a href="https://github.com/yahoo/samoa/wiki/Executing-
 <p><span class="path">~</span><span class="prompt">$</span>mvn package</p>
         </div>
       </div>
-<p>The deployable jar for SAMOA will be in <code>target/SAMOA-Local-0.0.1-SNAPSHOT.jar</code>.</p>
+<p>The deployable jar for Apache SAMOA will be in <code>target/SAMOA-Local-0.0.1-SNAPSHOT.jar</code>.</p>
     </li>
 
   </ul>
@@ -158,7 +158,7 @@ manually as explained in <a href="https://github.com/yahoo/samoa/wiki/Executing-
  
 
     <li id="terminal-step-1" class="option-terminal">
-      <h4>Download SAMOA</h4>
+      <h4>Download Apache SAMOA</h4>
       <div class="terminal">
         <div class="header"></div>
         <div class="shell">
@@ -171,8 +171,8 @@ manually as explained in <a href="https://github.com/yahoo/samoa/wiki/Executing-
 
 <li id="terminal-step-1" class="option-terminal">
       <h4>Download the Forest CoverType dataset </h4>
-      <p>If you want to compile SAMOA for S4, you will need to install the S4 dependencies
-manually as explained in <a href="https://github.com/yahoo/samoa/wiki/Executing-SAMOA-with-Apache-S4">Executing SAMOA with Apache S4</a>.</p>
+      <p>If you want to compile Apache SAMOA for S4, you will need to install the S4 dependencies
+manually as explained in <a href="https://github.com/yahoo/samoa/wiki/Executing-SAMOA-with-Apache-S4">Executing Apache SAMOA with Apache S4</a>.</p>
 <div class="terminal">
         <div class="header"></div>
         <div class="shell">
@@ -217,8 +217,8 @@ manually as explained in <a href="https://github.com/yahoo/samoa/wiki/Executing-
   </a>
 
   <ul class="site-footer-links">
-    <li>&copy; 2014 <span>SAMOA</span></li>
-     <li><a href="#build">Build SAMOA</a></h4>
+    <li>&copy; 2014 <span>Apache SAMOA</span></li>
+     <li><a href="#build">Build Apache SAMOA</a></h4>
      <li><a href="https://github.com/yahoo/samoa/wiki/Getting%20Started">Getting started!</a></li>
      <li><a href="https://github.com/yahoo/samoa/wiki/">Documentation</a></li>
   </ul>
