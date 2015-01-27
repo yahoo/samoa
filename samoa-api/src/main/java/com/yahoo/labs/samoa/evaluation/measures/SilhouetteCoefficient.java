@@ -20,16 +20,14 @@ package com.yahoo.labs.samoa.evaluation.measures;
  * #L%
  */
 
+import java.util.ArrayList;
 
 import com.yahoo.labs.samoa.moa.cluster.Cluster;
 import com.yahoo.labs.samoa.moa.cluster.Clustering;
 import com.yahoo.labs.samoa.moa.evaluation.MeasureCollection;
 import com.yahoo.labs.samoa.moa.core.DataPoint;
-import java.util.ArrayList;
-
 
 public class SilhouetteCoefficient extends MeasureCollection{
-    private double pointInclusionProbThreshold = 0.8;
 
     public SilhouetteCoefficient() {
         super();
@@ -62,6 +60,7 @@ public class SilhouetteCoefficient extends MeasureCollection{
         for (int p = 0; p < points.size(); p++) {
             DataPoint point = points.get(p);
             ArrayList<Integer> ownClusters = new ArrayList<>();
+            double pointInclusionProbThreshold = 0.8;
             for (int fc = 0; fc < numFCluster; fc++) {
                 if(pointInclusionProbFC[p][fc] > pointInclusionProbThreshold){
                     ownClusters.add(fc);
@@ -77,8 +76,7 @@ public class SilhouetteCoefficient extends MeasureCollection{
                     if(p1!= p && point1.classValue() != -1){
                         for (int fc = 0; fc < numFCluster; fc++) {
                             if(pointInclusionProbFC[p1][fc] > pointInclusionProbThreshold){
-                                double distance = distance(point, point1);
-                                distanceByClusters[fc]+=distance;
+                                distanceByClusters[fc] += point.getDistance(point1);
                                 countsByClusters[fc]++;
                             }
                         }
@@ -118,20 +116,13 @@ public class SilhouetteCoefficient extends MeasureCollection{
                 //System.out.println(point.getTimestamp()+" Silh "+silhP+" / "+avgDistanceOwn+" "+minAvgDistanceOther+" (C"+minIndex+")");
             }
         }
-        if(totalCount>0)
-            silhCoeff/=(double)totalCount;
+
+        if(totalCount>0) {
+            silhCoeff /= (double) totalCount;
+        }
+
         //normalize from -1, 1 to 0,1
         silhCoeff = (silhCoeff+1)/2.0;
         addValue(0,silhCoeff);
-    }
-
-    private double distance(DataPoint inst1, DataPoint inst2){
-        double distance = 0.0;
-        int numDims = inst1.numAttributes();
-        for (int i = 0; i < numDims; i++) {
-            double d = inst1.value(i) - inst2.value(i);
-            distance += d * d;
-        }
-        return Math.sqrt(distance);
     }
 }
