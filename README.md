@@ -43,7 +43,7 @@ cd samoa
 mvn -Pstorm package
 ```
 
-The deployable jar for SAMOA will be in `target/SAMOA-Storm-0.0.1-SNAPSHOT.jar`.
+The deployable jar for SAMOA will be in `target/SAMOA-Storm-0.3.0-SNAPSHOT.jar`.
 
 ###S4 mode
 
@@ -68,7 +68,7 @@ cd samoa
 mvn package
 ```
 
-The deployable jar for SAMOA will be in `target/SAMOA-Local-0.0.1-SNAPSHOT.jar`.
+The deployable jar for SAMOA will be in `target/SAMOA-Local-0.3.0-SNAPSHOT.jar`.
 
 ## Slides
 
